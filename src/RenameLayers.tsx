@@ -13,7 +13,6 @@ interface State {
   valueAttr: string
   sequence: number
   previewData: string[]
-  showError: string
   disableButton: boolean
   selection: any
   parsedData: any
@@ -32,7 +31,6 @@ class RenameLayers extends React.Component<Props, State> {
       valueAttr: "",
       sequence: 1,
       previewData: [],
-      showError: "",
       disableButton: true,
       selection: null,
       parsedData: null,
@@ -93,16 +91,14 @@ class RenameLayers extends React.Component<Props, State> {
     if (e.target.value == "" || isNumber(e.target.value)) {
       this.setState(
         {
-          sequence: e.target.value,
-          showError: ""
+          sequence: e.target.value
         },
         () => this.previewUpdate()
       )
     } else {
       this.setState(
         {
-          sequence: e.target.value,
-          showError: "show"
+          sequence: e.target.value
         },
         () => this.previewUpdate()
       )
@@ -118,7 +114,10 @@ class RenameLayers extends React.Component<Props, State> {
       pageName: this.state.parsedData.pageName
     }
 
-    return this.rename.layer({ ...item, ...options })
+    return this.rename.layer({
+      ...item,
+      ...options
+    })
   }
 
   onButtonClicked(e) {
@@ -246,12 +245,13 @@ class RenameLayers extends React.Component<Props, State> {
         </div>
 
         <div className="sequenceInput inputWrapper">
-          <label>Start from </label>
+          <label>Start from</label>
           <input
             type="number"
             className="input showBorder"
             value={this.state.sequence}
             onChange={this.onSequenceInputChange}
+            min="0"
           />
         </div>
 
