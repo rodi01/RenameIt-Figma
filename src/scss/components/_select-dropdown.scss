@@ -1,0 +1,200 @@
+.select-dropdown {
+	position: relative;
+
+	display: flex;
+	flex-direction: row;
+	flex-grow: 2;
+	flex-wrap: nowrap;
+
+	width: 100%;
+
+	@include font-ui-pos('small', 'normal');
+
+	&:last-child {
+		margin-right: 0;
+	}
+
+	&__button {
+		display: flex;
+		align-items: center;
+
+		width: 100%;
+		height: 30px;
+		margin: 1px 0 1px 0 !important;
+		padding: 0 8px 0 8px;
+
+		text-align: left;
+
+		cursor: pointer;
+
+		color: $figma-black-8;
+		border: 1px solid transparent;
+		border-radius: $border-radius-small;
+		background-color: $figma-white;
+
+		@include font-ui-pos('small', 'normal');
+
+		span:after {
+			display: inline-block;
+
+			width: 7px;
+			height: 5px;
+			margin-top: 6px;
+			margin-left: 6px;
+
+			content: '';
+
+			background-color: transparent;
+			background-image: url('data:image/svg+xml;utf8,%3Csvg%20fill%3D%22none%22%20height%3D%225%22%20viewBox%3D%220%200%207%205%22%20width%3D%227%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20clip-rule%3D%22evenodd%22%20d%3D%22m3%203.70711-3-3.000003.707107-.707107%202.646443%202.64645%202.64645-2.64645.70711.707107-3%203.000003-.35356.35355z%22%20fill%3D%22%23000%22%20fill-opacity%3D%22.3%22%20fill-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E');
+		}
+
+		&:hover {
+			padding: 0 8px 0 8px;
+
+			border: 1px solid $figma-black-1;
+
+			.chevron-down {
+				opacity: 1;
+			}
+
+			span:after {
+				opacity: 0;
+			}
+		}
+
+		.chevron-down {
+			position: absolute;
+			top: 1px;
+			right: 0;
+
+			width: 30px;
+			height: 30px;
+
+			opacity: 0;
+			background-image: url('data:image/svg+xml;utf8,
+            %3Csvg%20fill%3D%22none%22%20height%3D%2230%22%20viewBox%3D%220%200%2030%2030%22%20width%3D%2230%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20clip-rule%3D%22evenodd%22%20d%3D%22m15%2016.7071-3-3%20.7071-.7071%202.6465%202.6464%202.6464-2.6464.7071.7071-3%203-.3535.3536z%22%20fill%3D%22%23000%22%20fill-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E
+            ');
+			background-repeat: no-repeat;
+			background-position: 0 0;
+		}
+
+		&:focus, &--active {
+			width: 100%;
+			padding: 0 7px 0 7px;
+
+			border: 2px solid $figma-blue;
+			outline: none;
+
+			.chevron-down {
+				opacity: 1;
+			}
+
+			span:after {
+				opacity: 0;
+			}
+		}
+	}
+
+	&__list {
+		position: absolute;
+		z-index: 2;
+		top: 31px;
+		right: 0;
+		left: 0;
+
+		display: block;
+		overflow: auto;
+
+		width: 100%;
+		margin: 0;
+		padding: 0;
+
+		list-style-type: none;
+
+		pointer-events: none;
+
+		opacity: 0;
+		box-shadow: 0 5px 17px rgba(0, 0, 0, .2), 0 2px 7px rgba(0, 0, 0, .15);
+
+		&:before {
+			display: block;
+
+			height: 8px;
+
+			content: '';
+
+			border-top-left-radius: $border-radius-small;
+			border-top-right-radius: $border-radius-small;
+			background-color: $figma-hud;
+		}
+
+		&:after {
+			display: block;
+
+			height: 8px;
+
+			content: '';
+
+			border-bottom-right-radius: $border-radius-small;
+			border-bottom-left-radius: $border-radius-small;
+			background-color: $figma-hud;
+		}
+
+		&.active {
+			pointer-events: auto;
+
+			opacity: 1;
+		}
+	}
+
+	&__list-item {
+		display: flex;
+		align-items: center;
+
+		width: 100%;
+		height: 24px;
+		padding: 0 16px 0 32px;
+
+		list-style-type: none;
+
+		text-align: left;
+
+		cursor: pointer;
+
+		color: $figma-white;
+		background-color: $figma-hud;
+
+		@include font-ui-neg('medium', 'normal');
+
+		&:hover {
+			color: $figma-white;
+			background-color: $figma-blue;
+		}
+
+		&--selected {
+			background-image: url('data:image/svg+xml;utf8,
+			%3Csvg%20fill%3D%22none%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20width%3D%2216%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20clip-rule%3D%22evenodd%22%20d%3D%22m13.2069%205.20724-5.50002%205.49996-.70711.7072-.70711-.7072-3-2.99996%201.41422-1.41421%202.29289%202.29289%204.79293-4.79289z%22%20fill%3D%22%23fff%22%20fill-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E
+			');
+			background-repeat: no-repeat;
+			background-position: 8px 4px;
+		}
+
+		&--initial {
+			background-color: $figma-blue;
+		}
+	}
+
+	&__divider {
+		margin: 0;
+		padding: 8px 0 8px 0;
+
+		background-color: $figma-hud;
+	}
+	&__line {
+		display: block;
+
+		height: 1px;
+
+		background-color: $figma-white-2;
+	}
+}

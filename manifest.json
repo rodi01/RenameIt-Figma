@@ -1,0 +1,17 @@
+{
+  "name": "Rename It",
+  "id": "oiT568gCOVSwEH6bNM4U2k",
+  "version": "0.5.0",
+  "html": "dist/ui.html",
+  "script": "dist/code.js",
+  "menu": [
+    {
+      "name": "Rename Selected Layers",
+      "command": "renameLayers"
+    },
+    {
+      "name": "Find & Replace Selected Layers",
+      "command": "findReplace"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+// Type mixins
+@mixin font-ui-pos($size, $weight) {
+	font-family: $font-stack;
+	line-height: $font-lineheight;
+	//weight 
+	@if $weight == 'bold' {
+		font-weight: $font-weight-bold;
+	} @else if $weight == 'medium' {
+		font-weight: $font-weight-medium;
+	} @else {
+		font-weight: $font-weight-normal;
+	}
+	//letterspacing + size
+	@if $size == 'small' {
+		font-size: $font-size-small;
+		letter-spacing: $font-letterspacing-pos-small;
+	} @else if $size == 'medium' {
+		font-size: $font-size-medium;
+		letter-spacing: $font-letterspacing-pos-medium;
+	}
+}
+
+@mixin font-ui-neg($size, $weight) {
+	font-family: $font-stack;
+	line-height: $font-lineheight;
+	//weight 
+	@if $weight == 'bold' {
+		font-weight: $font-weight-bold;
+	} @else if $weight == 'medium' {
+		font-weight: $font-weight-medium;
+	} @else {
+		font-weight: $font-weight-normal;
+	}
+	//letterspacing + size
+	@if $size == 'medium' {
+		font-size: $font-size-medium;
+		letter-spacing: $font-letterspacing-neg-medium;
+	} @else {
+		font-size: $font-size-small;
+		letter-spacing: $font-letterspacing-neg-small;
+	}
+}

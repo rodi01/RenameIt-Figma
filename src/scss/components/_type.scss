@@ -1,0 +1,80 @@
+.type {
+  margin: 0;
+  padding: 0;
+
+  //Positive
+  &--11-pos {
+    color: $figma-black-8;
+
+    @include font-ui-pos("small", "normal");
+  }
+
+  &--11-pos-medium {
+    color: $figma-black-8;
+
+    @include font-ui-pos("small", "medium");
+  }
+
+  &--11-pos-bold {
+    color: $figma-black-8;
+
+    @include font-ui-pos("small", "bold");
+  }
+
+  &--12-pos {
+    color: $figma-black-8;
+
+    @include font-ui-pos("medium", "normal");
+  }
+
+  &--12-pos-medium {
+    color: $figma-black-8;
+
+    @include font-ui-pos("medium", "medium");
+  }
+
+  &--12-pos-bold {
+    @include font-ui-pos("medium", "bold");
+  }
+
+  //Negative
+  &--11-neg {
+    color: $figma-white;
+
+    @include font-ui-neg("small", "normal");
+  }
+
+  &--11-neg-medium {
+    color: $figma-white;
+
+    @include font-ui-neg("small", "medium");
+  }
+
+  &--11-neg-bold {
+    color: $figma-white;
+
+    @include font-ui-neg("small", "bold");
+  }
+
+  &--12-neg {
+    color: $figma-white;
+
+    @include font-ui-neg("medium", "normal");
+  }
+
+  &--12-neg-medium {
+    color: $figma-white;
+
+    @include font-ui-neg("medium", "medium");
+  }
+
+  &--12-neg-bold {
+    color: $figma-white;
+
+    @include font-ui-neg("medium", "bold");
+  }
+}
+
+body {
+  @extend .type--11-pos;
+}

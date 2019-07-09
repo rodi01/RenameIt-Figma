@@ -1,0 +1,46 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "plugins": ["@typescript-eslint", "prettier"],
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier/@typescript-eslint",
+    "plugin:prettier/recommended"
+  ],
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "semi": false
+      }
+    ],
+    "react/jsx-no-bind": 0,
+    "global-require": 0,
+    "react/no-array-index-key": 0,
+    "react/require-default-props": 0,
+    "jsx-a11y/no-autofocus": 0,
+    "jsx-a11y/label-has-for": 0,
+    "no-return-assign": 0,
+    "jsx-a11y/click-events-have-key-events": 0,
+    "jsx-a11y/no-static-element-interactions": 0,
+    "class-methods-use-this": 0,
+    "react/prop-types": 0,
+    "prefer-destructuring": 0,
+    "no-undef": 0,
+    "@typescript-eslint/explicit-member-accessibility": 0,
+    "@typescript-eslint/explicit-function-return-type": 0,
+    "@typescript-eslint/no-explicit-any": 0
+  }
+}
