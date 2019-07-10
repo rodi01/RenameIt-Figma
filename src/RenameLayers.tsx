@@ -4,6 +4,7 @@ import * as isBlank from "is-blank"
 import * as isNumber from "is-number"
 import Preview from "./Preview"
 import { html as io } from "./Lib/io.js"
+import { renameData } from "./Lib/DataHelper"
 
 interface Props {
   data: any
@@ -57,10 +58,9 @@ class RenameLayers extends React.Component<Props, State> {
       hasLayerStyle: d.hasLayerStyle,
       hasSymbol: d.hasSymbol
     })
+
     this.nameInput.current.focus()
     document.addEventListener("keydown", this.enterFunction, false)
-
-    console.log(this.state.parsedData)
   }
 
   componentWillUnmount() {
@@ -106,13 +106,13 @@ class RenameLayers extends React.Component<Props, State> {
   }
 
   doRename(item, index) {
-    const options = {
-      currIdx: index,
-      selectionCount: this.state.parsedData.selectionCount,
-      inputName: this.state.valueAttr,
-      startsFrom: Number(this.state.sequence),
-      pageName: this.state.parsedData.pageName
-    }
+    const options = renameData(
+      item,
+      this.state.parsedData.selectionCount,
+      this.state.valueAttr,
+      this.state.sequence,
+      this.state.parsedData.pageName
+    )
 
     return this.rename.layer({
       ...item,

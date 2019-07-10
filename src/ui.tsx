@@ -3,13 +3,14 @@ import * as ReactDOM from "react-dom"
 import { html as io } from "./Lib/io.js"
 import { WhereTo } from "./Utilities"
 import RenameLayers from "./RenameLayers"
+import FindReplaceLayers from "./FindReplaceLayers"
 import NoSelection from "./NoSelection"
 import "./scss/main.scss"
 
-type Props = {}
-type States = {
+interface Props {}
+interface States {
   data: any
-  whereTo: String
+  whereTo: string
 }
 
 class App extends React.Component<Props, States> {
@@ -20,18 +21,20 @@ class App extends React.Component<Props, States> {
 
   async componentDidMount() {
     const msg = await io.async("sendData")
-    this.setState({
-      data: msg.data,
-      whereTo: msg.command
-    })
+    this.setState({ data: msg.data, whereTo: msg.command })
   }
 
   toRender() {
     switch (this.state.whereTo) {
       case WhereTo.RenameLayers:
         return <RenameLayers data={JSON.stringify(this.state.data)} />
+
+      case WhereTo.FindReplace:
+        return <FindReplaceLayers data={JSON.stringify(this.state.data)} />
+
       case WhereTo.NoSelection:
         return <NoSelection />
+
       default:
         return <div />
     }

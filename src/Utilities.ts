@@ -7,13 +7,13 @@ export enum WhereTo {
   NoSelection = "noSelection"
 }
 
-function hasStyles(item: any) {  
+function hasStyles(item: any) {
   if (item.textStyleId !== undefined) {
     return item.textStyleId !== ""
   } else if (item.fillStyleId !== undefined) {
     return item.fillStyleId !== ""
   }
-  
+
   return false
 }
 
@@ -39,7 +39,7 @@ function hasSymbols(item: any) {
   return item.constructor.name === "InstanceNode"
 }
 
-function getSymbolName(item:any) {
+function getSymbolName(item: any) {
   let name = ""
   if (hasSymbols(item)) {
     name = item.masterComponent.name
@@ -48,7 +48,17 @@ function getSymbolName(item:any) {
   return name
 }
 
-
+function layerObject(item: any, index) {
+  return {
+    layerName: item.name,
+    idx: index,
+    width: item.width,
+    height: item.height,
+    parentName: item.parent.name,
+    layerStyle: getStyle(item),
+    symbolName: getSymbolName(item)
+  }
+}
 
 export function parseData(data: any) {
   const object = {
@@ -63,15 +73,12 @@ export function parseData(data: any) {
     if (!object.hasLayerStyle) object.hasLayerStyle = hasStyles(item)
     if (!object.hasSymbol) object.hasSymbol = hasSymbols(item)
 
-    object.selection[index] = {
-      layerName: item.name,
-      width: item.width,
-      height: item.height,
-      parentName: item.parent.name,
-      layerStyle: getStyle(item),
-      symbolName: getSymbolName(item)
-    }
+    object.selection[index] = layerObject(item, index)
   })
 
   return object
 }
+
+// export function findReplaceDataParser(d: any) {   const data = parseData(d)
+// data.selection.forEach((item, index) => {   }   layers.forEach((layer, i) =>
+// {     data.allLayers[i] = layerObject(layer, i)   })   return data }
