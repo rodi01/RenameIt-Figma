@@ -46,7 +46,7 @@ function theUI() {
     to = WhereTo.FindReplace
     windowOptions = {
       width: 430,
-      height: 300
+      height: 270
     }
   } else {
     to = WhereTo.NoSelection
@@ -64,7 +64,7 @@ function theUI() {
   })
 
   io.once("renameLayers", d => {
-    const rename = Rename()
+    const rename = new Rename()
     figma.currentPage.selection.forEach((item, index) => {
       item.name = doRename(rename, data.selection[index], index, d)
     })

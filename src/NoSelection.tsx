@@ -15,7 +15,7 @@ class NoSelection extends React.Component {
     return (
       <div>
         <h2>Uh Oh!</h2>
-        <p>You need to select at least one artboard or layer.</p>
+        <p>You need to select at least one frame or layer.</p>
         <footer>
           <button
             type="submit"
