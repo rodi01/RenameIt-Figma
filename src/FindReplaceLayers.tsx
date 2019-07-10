@@ -122,7 +122,7 @@ class FindReplaceLayers extends React.Component<Props, State> {
 
   render() {
     return (
-      <div className="findReplace">
+      <div className="findReplace type type--11-pos">
         <h1>Find &amp; Replace Selected Layers</h1>
         <div className="findSection inputWrapper">
           <label>Find</label>

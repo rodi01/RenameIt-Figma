@@ -232,6 +232,7 @@ class RenameLayers extends React.Component<Props, State> {
 
     return (
       <div className="type type--11-pos">
+        <h1>Rename Selected Layers</h1>
         <div className="nameSection inputWrapper">
           <label>Name</label>
           <input

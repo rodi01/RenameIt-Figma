@@ -36,7 +36,7 @@ function theUI() {
   let to = "noSelection"
   let windowOptions = {
     width: 430,
-    height: 440
+    height: 470
   }
 
   // Set screen to show
@@ -46,7 +46,7 @@ function theUI() {
     to = WhereTo.FindReplace
     windowOptions = {
       width: 430,
-      height: 270
+      height: 305
     }
   } else {
     to = WhereTo.NoSelection

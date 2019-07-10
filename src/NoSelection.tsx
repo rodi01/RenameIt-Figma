@@ -14,7 +14,7 @@ class NoSelection extends React.Component {
   render() {
     return (
       <div>
-        <h2>Uh Oh!</h2>
+        <h1>Uh Oh!</h1>
         <p>You need to select at least one frame or layer.</p>
         <footer>
           <button
