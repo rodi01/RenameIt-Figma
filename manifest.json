@@ -1,9 +1,9 @@
 {
   "name": "Rename It",
-  "id": "oiT568gCOVSwEH6bNM4U2k",
-  "version": "0.5.0",
-  "html": "dist/ui.html",
-  "script": "dist/code.js",
+  "id": "731271836271143349",
+  "api": "0.6.0",
+  "ui": "dist/ui.html",
+  "main": "dist/code.js",
   "menu": [
     {
       "name": "Rename Selected Layers",
