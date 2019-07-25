@@ -1,6 +1,6 @@
 import { script as io } from "./Lib/io.js"
 import { Rename, FindReplace } from "renameitlib"
-import { parseData, WhereTo } from "./Utilities"
+import { parseData, WhereTo, reorderSelection } from "./Utilities"
 import { findReplaceData, renameData } from "./Lib/DataHelper"
 
 const data = parseData(figma.currentPage)
@@ -65,7 +65,8 @@ function theUI() {
 
   io.once("renameLayers", d => {
     const rename = new Rename()
-    figma.currentPage.selection.forEach((item, index) => {
+    const sel = reorderSelection(figma.currentPage)
+    sel.forEach((item, index) => {
       item.name = doRename(rename, data.selection[index], index, d)
     })
 

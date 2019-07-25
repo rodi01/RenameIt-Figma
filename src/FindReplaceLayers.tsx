@@ -19,6 +19,7 @@ interface State {
 
 class FindReplaceLayers extends React.Component<Props, State> {
   findReplace: any
+  findInput: any
 
   constructor(props) {
     super(props)
@@ -38,11 +39,13 @@ class FindReplaceLayers extends React.Component<Props, State> {
     this.onCancel = this.onCancel.bind(this)
     this.onCaseSensitiveChange = this.onCaseSensitiveChange.bind(this)
     this.enterFunction = this.enterFunction.bind(this)
+    this.findInput = React.createRef()
   }
 
   componentDidMount() {
     const d = JSON.parse(this.props.data)
     this.setState({ selection: d.selection, parsedData: d })
+    this.findInput.current.focus()
 
     document.addEventListener("keydown", this.enterFunction, false)
   }
@@ -129,6 +132,7 @@ class FindReplaceLayers extends React.Component<Props, State> {
           <input
             type="text"
             id="find"
+            ref={this.findInput}
             className="input showBorder"
             value={this.state.findValue}
             onChange={this.onFindInputChange}

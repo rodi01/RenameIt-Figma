@@ -60,6 +60,25 @@ function layerObject(item: any, index) {
   }
 }
 
+export function reorderSelection(data: any) {
+  const firstParent = data.selection[0].parent
+  const sameParent = data.selection.every(
+    elem => elem.parent.id === firstParent.id
+  )
+  if (sameParent) {
+    const arr = []
+    firstParent.children.forEach(child => {
+      if (data.selection.includes(child)) {
+        arr.push(child)
+      }
+    })
+
+    return arr
+  } else {
+    return data.selection
+  }
+}
+
 export function parseData(data: any) {
   const object = {
     pageName: data.name as string,
@@ -69,7 +88,8 @@ export function parseData(data: any) {
     hasSymbol: false as boolean
   }
 
-  data.selection.forEach((item, index) => {
+  const sel = reorderSelection(data)
+  sel.forEach((item, index) => {
     if (!object.hasLayerStyle) object.hasLayerStyle = hasStyles(item)
     if (!object.hasSymbol) object.hasSymbol = hasSymbols(item)
 

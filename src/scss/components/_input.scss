@@ -8,7 +8,7 @@
   padding: 8px 4px 8px 7px;
 
   color: $figma-black-8;
-  border: 1px solid transparent;
+  border: 1px solid $figma-black-1;
   border-radius: $border-radius-small;
   outline: none;
   background-color: $figma-white;
@@ -23,7 +23,6 @@
   &:active,
   &:focus {
     padding: 8px 4px 8px 6px;
-
     color: $figma-black;
     border: 2px solid $figma-blue;
     border-radius: $border-radius-small;
@@ -40,10 +39,6 @@
 
   &:disabled {
     color: $figma-black-3;
-  }
-
-  &.showBorder {
-    border: 1px solid $figma-black-1;
   }
 }
 
