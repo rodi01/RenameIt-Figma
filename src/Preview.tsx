@@ -1,11 +1,18 @@
+/*
+ * @Author: Rodrigo Soares
+ * @Date: 2019-07-31 20:38:59
+ * @Last Modified by:   Rodrigo Soares
+ * @Last Modified time: 2019-07-31 20:38:59
+ */
+
 import * as React from "react"
 import * as isBlank from "is-blank"
 
-type Props = {
-  data: Array<string>
+interface Props {
+  data: string[]
 }
 
-type State = {
+interface State {
   preview: string
 }
 

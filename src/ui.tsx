@@ -1,3 +1,10 @@
+/*
+ * @Author: Rodrigo Soares
+ * @Date: 2019-07-31 20:39:24
+ * @Last Modified by:   Rodrigo Soares
+ * @Last Modified time: 2019-07-31 20:39:24
+ */
+
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 import { html as io } from "./Lib/io.js"

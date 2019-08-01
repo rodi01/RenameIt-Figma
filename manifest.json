@@ -1,7 +1,7 @@
 {
   "name": "Rename It",
   "id": "731271836271143349",
-  "api": "0.6.0",
+  "api": "1.0.0",
   "ui": "dist/ui.html",
   "main": "dist/code.js",
   "menu": [

@@ -1,3 +1,10 @@
+/*
+ * @Author: Rodrigo Soares
+ * @Date: 2019-07-31 20:37:56
+ * @Last Modified by: Rodrigo Soares
+ * @Last Modified time: 2019-07-31 20:39:03
+ */
+
 import * as React from "react"
 import { Rename } from "renameitlib"
 import * as isBlank from "is-blank"

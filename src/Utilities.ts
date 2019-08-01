@@ -1,4 +1,9 @@
-import { func } from "prop-types"
+/*
+ * @Author: Rodrigo Soares
+ * @Date: 2019-07-31 19:01:45
+ * @Last Modified by: Rodrigo Soares
+ * @Last Modified time: 2019-07-31 20:52:46
+ */
 
 export enum WhereTo {
   RenameLayers = "renameLayers",
@@ -48,6 +53,10 @@ function getSymbolName(item: any) {
   return name
 }
 
+export function hasSelection(data: any) {
+  return data.selectionCount > 0
+}
+
 function layerObject(item: any, index) {
   return {
     layerName: item.name,
@@ -61,6 +70,8 @@ function layerObject(item: any, index) {
 }
 
 export function reorderSelection(data: any) {
+  if (!hasSelection(data)) return data.selection
+  
   const firstParent = data.selection[0].parent
   const sameParent = data.selection.every(
     elem => elem.parent.id === firstParent.id
@@ -98,7 +109,3 @@ export function parseData(data: any) {
 
   return object
 }
-
-// export function findReplaceDataParser(d: any) {   const data = parseData(d)
-// data.selection.forEach((item, index) => {   }   layers.forEach((layer, i) =>
-// {     data.allLayers[i] = layerObject(layer, i)   })   return data }

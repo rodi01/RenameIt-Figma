@@ -1,3 +1,10 @@
+/*
+ * @Author: Rodrigo Soares
+ * @Date: 2019-07-31 20:37:18
+ * @Last Modified by:   Rodrigo Soares
+ * @Last Modified time: 2019-07-31 20:37:18
+ */
+
 import * as React from "react"
 import { FindReplace } from "renameitlib"
 import { findReplaceData } from "./Lib/DataHelper"

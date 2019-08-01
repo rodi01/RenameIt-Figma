@@ -1,6 +1,14 @@
+/*
+ * @Author: Rodrigo Soares
+ * @Date: 2019-07-31 20:36:11
+ * @Last Modified by: Rodrigo Soares
+ * @Last Modified time: 2019-07-31 20:51:30
+ */
+
 import { script as io } from "./Lib/io.js"
 import { Rename, FindReplace } from "renameitlib"
-import { parseData, WhereTo, reorderSelection } from "./Utilities"
+import * as isBlank from "is-blank"
+import { parseData, WhereTo, reorderSelection, hasSelection } from "./Utilities"
 import { findReplaceData, renameData } from "./Lib/DataHelper"
 
 const data = parseData(figma.currentPage)
@@ -32,7 +40,6 @@ function doFindReplace(findReplace, item, inputData) {
 }
 
 function theUI() {
-  const hasSelection = data.selectionCount > 0
   let to = "noSelection"
   let windowOptions = {
     width: 430,
@@ -40,9 +47,9 @@ function theUI() {
   }
 
   // Set screen to show
-  if (figma.command === WhereTo.RenameLayers && hasSelection) {
+  if (figma.command === WhereTo.RenameLayers && hasSelection(data)) {
     to = WhereTo.RenameLayers
-  } else if (figma.command === WhereTo.FindReplace && hasSelection) {
+  } else if (figma.command === WhereTo.FindReplace && hasSelection(data)) {
     to = WhereTo.FindReplace
     windowOptions = {
       width: 430,
@@ -67,7 +74,10 @@ function theUI() {
     const rename = new Rename()
     const sel = reorderSelection(figma.currentPage)
     sel.forEach((item, index) => {
-      item.name = doRename(rename, data.selection[index], index, d)
+      const name = doRename(rename, data.selection[index], index, d)
+      if (!isBlank(name)) {
+        item.name = name
+      }
     })
 
     figma.closePlugin()
