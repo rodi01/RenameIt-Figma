@@ -1,8 +1,8 @@
 /*
  * @Author: Rodrigo Soares
  * @Date: 2019-07-31 20:38:59
- * @Last Modified by:   Rodrigo Soares
- * @Last Modified time: 2019-07-31 20:38:59
+ * @Last Modified by: Rodrigo Soares
+ * @Last Modified time: 2019-07-31 21:01:51
  */
 
 import * as React from "react"
@@ -24,10 +24,12 @@ class Preview extends React.Component<Props, State> {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      preview: nextProps.data.filter(val => val).join(", ")
-    })
+  componentDidUpdate(prevProps) {
+    if (this.props.data !== prevProps.data) {
+      this.setState({
+        preview: this.props.data.filter(val => val).join(", ")
+      })
+    }
   }
 
   renderPreviewText() {
