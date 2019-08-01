@@ -1,8 +1,8 @@
 /*
  * @Author: Rodrigo Soares
  * @Date: 2019-07-31 20:39:24
- * @Last Modified by:   Rodrigo Soares
- * @Last Modified time: 2019-07-31 20:39:24
+ * @Last Modified by: Rodrigo Soares
+ * @Last Modified time: 2019-07-31 21:03:40
  */
 
 import * as React from "react"
@@ -14,13 +14,12 @@ import FindReplaceLayers from "./FindReplaceLayers"
 import NoSelection from "./NoSelection"
 import "./scss/main.scss"
 
-interface Props {}
 interface States {
   data: any
   whereTo: string
 }
 
-class App extends React.Component<Props, States> {
+class App extends React.Component<{}, States> {
   state: States = {
     data: null,
     whereTo: null
