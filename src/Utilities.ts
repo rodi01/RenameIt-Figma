@@ -54,7 +54,7 @@ function getSymbolName(item: any) {
 }
 
 export function hasSelection(data: any) {
-  return data.selectionCount > 0
+  return data.selection.length > 0
 }
 
 function layerObject(item: any, index) {
@@ -71,7 +71,7 @@ function layerObject(item: any, index) {
 
 export function reorderSelection(data: any) {
   if (!hasSelection(data)) return data.selection
-  
+
   const firstParent = data.selection[0].parent
   const sameParent = data.selection.every(
     elem => elem.parent.id === firstParent.id
