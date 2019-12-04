@@ -1,7 +1,7 @@
 {
   "name": "rename-it-figma",
   "version": "1.0.0",
-  "description": "\"Keep your Adobe XD files organized, batch rename layers and artboards.\"",
+  "description": "\"Keep your Figma files organized, batch rename layers and artboards.\"",
   "main": "code.js",
   "scripts": {
     "dev": "webpack --watch --mode development --devtool inline-source-map --config webpack.config.js",
