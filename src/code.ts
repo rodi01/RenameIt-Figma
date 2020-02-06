@@ -85,7 +85,8 @@ function theUI() {
 
   io.once("findReplaceLayers", d => {
     const findReplace = new FindReplace()
-    figma.currentPage.selection.forEach((item, index) => {
+    const sel = reorderSelection(figma.currentPage)
+    sel.forEach((item, index) => {
       const name = doFindReplace(findReplace, data.selection[index], d)
       if (name) item.name = name
     })
