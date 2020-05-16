@@ -1,15 +1,15 @@
 /*
  * @Author: Rodrigo Soares
  * @Date: 2019-07-31 20:37:18
- * @Last Modified by:   Rodrigo Soares
- * @Last Modified time: 2019-07-31 20:37:18
+ * @Last Modified by: Rodrigo Soares
+ * @Last Modified time: 2020-05-15 23:58:28
  */
 
-import * as React from "react"
-import { FindReplace } from "renameitlib"
-import { findReplaceData } from "./Lib/DataHelper"
-import Preview from "./Preview"
-import { html as io } from "./Lib/io.js"
+import * as React from 'react'
+import { FindReplace } from '@rodi01/renameitlib'
+import { findReplaceData } from './Lib/DataHelper'
+import Preview from './Preview'
+import { html as io } from './Lib/io.js'
 
 interface Props {
   data: any
@@ -32,12 +32,12 @@ class FindReplaceLayers extends React.Component<Props, State> {
     super(props)
 
     this.state = {
-      findValue: "",
-      replaceValue: "",
+      findValue: '',
+      replaceValue: '',
       caseSensitive: false,
       previewData: [],
       parsedData: null,
-      selection: null
+      selection: null,
     }
 
     this.findReplace = new FindReplace()
@@ -54,10 +54,10 @@ class FindReplaceLayers extends React.Component<Props, State> {
     this.setState({ selection: d.selection, parsedData: d })
     this.findInput.current.focus()
 
-    document.addEventListener("keydown", this.enterFunction, false)
+    document.addEventListener('keydown', this.enterFunction, false)
   }
   componentWillUnmount() {
-    document.removeEventListener("keydown", this.enterFunction, false)
+    document.removeEventListener('keydown', this.enterFunction, false)
   }
 
   doRename(item) {
@@ -74,11 +74,11 @@ class FindReplaceLayers extends React.Component<Props, State> {
   }
 
   onFindInputChange(e) {
-    const isFind = e.target.id === "find"
+    const isFind = e.target.id === 'find'
     this.setState(
       {
         findValue: isFind ? e.target.value : this.state.findValue,
-        replaceValue: !isFind ? e.target.value : this.state.replaceValue
+        replaceValue: !isFind ? e.target.value : this.state.replaceValue,
       },
       () => this.previewUpdate()
     )
@@ -87,7 +87,7 @@ class FindReplaceLayers extends React.Component<Props, State> {
   onCaseSensitiveChange() {
     this.setState(
       {
-        caseSensitive: !this.state.caseSensitive
+        caseSensitive: !this.state.caseSensitive,
       },
       () => this.previewUpdate()
     )
@@ -95,7 +95,7 @@ class FindReplaceLayers extends React.Component<Props, State> {
 
   previewUpdate() {
     const renamed = []
-    this.state.selection.forEach(item => {
+    this.state.selection.forEach((item) => {
       const name = this.doRename(item)
       if (name) {
         renamed.push(name)
@@ -118,16 +118,16 @@ class FindReplaceLayers extends React.Component<Props, State> {
     const opts = {
       findText: this.state.findValue,
       replaceText: this.state.replaceValue,
-      caseSensitive: this.state.caseSensitive
+      caseSensitive: this.state.caseSensitive,
     }
 
-    io.send("findReplaceLayers", opts)
+    io.send('findReplaceLayers', opts)
 
-    document.removeEventListener("keydown", this.enterFunction, false)
+    document.removeEventListener('keydown', this.enterFunction, false)
   }
 
   onCancel() {
-    io.send("cancel", null)
+    io.send('cancel', null)
   }
 
   render() {

@@ -2,14 +2,14 @@
  * @Author: Rodrigo Soares
  * @Date: 2019-07-31 20:36:11
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2019-07-31 20:51:30
+ * @Last Modified time: 2020-05-15 23:58:53
  */
 
-import { script as io } from "./Lib/io.js"
-import { Rename, FindReplace } from "renameitlib"
-import * as isBlank from "is-blank"
-import { parseData, WhereTo, reorderSelection, hasSelection } from "./Utilities"
-import { findReplaceData, renameData } from "./Lib/DataHelper"
+import { script as io } from './Lib/io.js'
+import { Rename, FindReplace } from '@rodi01/renameitlib'
+import * as isBlank from 'is-blank'
+import { parseData, WhereTo, reorderSelection, hasSelection } from './Utilities'
+import { findReplaceData, renameData } from './Lib/DataHelper'
 
 const data = parseData(figma.currentPage)
 
@@ -24,7 +24,7 @@ function doRename(rename, item, index, inputData) {
 
   return rename.layer({
     ...item,
-    ...options
+    ...options,
   })
 }
 
@@ -40,10 +40,10 @@ function doFindReplace(findReplace, item, inputData) {
 }
 
 function theUI() {
-  let to = "noSelection"
+  let to = 'noSelection'
   let windowOptions = {
     width: 430,
-    height: 470
+    height: 470,
   }
 
   // Set screen to show
@@ -53,25 +53,25 @@ function theUI() {
     to = WhereTo.FindReplace
     windowOptions = {
       width: 430,
-      height: 305
+      height: 305,
     }
   } else {
     to = WhereTo.NoSelection
     windowOptions = {
       width: 300,
-      height: 140
+      height: 140,
     }
   }
 
   figma.showUI(__html__, windowOptions)
 
-  io.send("sendData", {
+  io.send('sendData', {
     data: data,
-    command: to
+    command: to,
   })
 
-  io.once("renameLayers", d => {
-    const rename = new Rename()
+  io.once('renameLayers', (d) => {
+    const rename = new Rename({ allowChildLayer: true })
     const sel = reorderSelection(figma.currentPage)
     sel.forEach((item, index) => {
       const name = doRename(rename, data.selection[index], index, d)
@@ -83,7 +83,7 @@ function theUI() {
     figma.closePlugin()
   })
 
-  io.once("findReplaceLayers", d => {
+  io.once('findReplaceLayers', (d) => {
     const findReplace = new FindReplace()
     const sel = reorderSelection(figma.currentPage)
     sel.forEach((item, index) => {
@@ -94,7 +94,7 @@ function theUI() {
     figma.closePlugin()
   })
 
-  io.once("cancel", d => {
+  io.once('cancel', (d) => {
     figma.closePlugin()
   })
 }
