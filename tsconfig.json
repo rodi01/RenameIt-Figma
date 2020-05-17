@@ -3,6 +3,8 @@
     "jsx": "react",
     "sourceMap": true,
     "removeComments": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "typeRoots": ["./node_modules/@types", "./node_modules/@figma"],
+    "resolveJsonModule": true
   }
 }
