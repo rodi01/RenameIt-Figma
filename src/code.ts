@@ -2,7 +2,7 @@
  * @Author: Rodrigo Soares
  * @Date: 2019-07-31 20:36:11
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2020-05-15 23:58:53
+ * @Last Modified time: 2020-05-19 01:57:46
  */
 
 import { script as io } from './Lib/io.js'
@@ -10,6 +10,12 @@ import { Rename, FindReplace } from '@rodi01/renameitlib'
 import * as isBlank from 'is-blank'
 import { parseData, WhereTo, reorderSelection, hasSelection } from './Utilities'
 import { findReplaceData, renameData } from './Lib/DataHelper'
+import {
+  getUUID,
+  analyticsEnabled,
+  setAnalyticsEnabled,
+  analyticsFirstRun,
+} from './Lib/GoogleAnalytics'
 
 const data = parseData(figma.currentPage)
 
@@ -39,8 +45,9 @@ function doFindReplace(findReplace, item, inputData) {
   return findReplace.match(options) ? findReplace.layer(options) : false
 }
 
-function theUI() {
+async function theUI() {
   let to = 'noSelection'
+  const firstRun = await analyticsFirstRun()
   let windowOptions = {
     width: 430,
     height: 470,
@@ -63,11 +70,17 @@ function theUI() {
     }
   }
 
-  figma.showUI(__html__, windowOptions)
+  const windowDim = firstRun ? { width: 430, height: 180 } : windowOptions
+
+  figma.showUI(__html__, windowDim)
 
   io.send('sendData', {
     data: data,
     command: to,
+    UUID: await getUUID(),
+    firstRun: firstRun,
+    analyticsEnabled: await analyticsEnabled(),
+    windowDim: windowOptions,
   })
 
   io.once('renameLayers', (d) => {
@@ -96,6 +109,14 @@ function theUI() {
 
   io.once('cancel', (d) => {
     figma.closePlugin()
+  })
+
+  io.once('setAnalytics', (value) => {
+    setAnalyticsEnabled(value)
+  })
+
+  io.once('resizeViewport', (opts) => {
+    figma.ui.resize(opts.width, opts.height)
   })
 }
 

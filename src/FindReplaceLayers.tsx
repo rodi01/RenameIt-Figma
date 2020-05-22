@@ -2,7 +2,7 @@
  * @Author: Rodrigo Soares
  * @Date: 2019-07-31 20:37:18
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2020-05-15 23:58:28
+ * @Last Modified time: 2020-05-22 00:54:53
  */
 
 import * as React from 'react'
@@ -10,9 +10,12 @@ import { FindReplace } from '@rodi01/renameitlib'
 import { findReplaceData } from './Lib/DataHelper'
 import Preview from './Preview'
 import { html as io } from './Lib/io.js'
+import { track } from './Lib/GoogleAnalytics'
 
 interface Props {
   data: any
+  uuid: string
+  analyticsEnabled: boolean
 }
 
 interface State {
@@ -50,6 +53,11 @@ class FindReplaceLayers extends React.Component<Props, State> {
   }
 
   componentDidMount() {
+    track(
+      'pageview',
+      { dp: '/find_replace', cid: this.props.uuid },
+      { analyticsEnabled: this.props.analyticsEnabled, debug: true }
+    )
     const d = JSON.parse(this.props.data)
     this.setState({ selection: d.selection, parsedData: d })
     this.findInput.current.focus()
@@ -120,6 +128,39 @@ class FindReplaceLayers extends React.Component<Props, State> {
       replaceText: this.state.replaceValue,
       caseSensitive: this.state.caseSensitive,
     }
+
+    track(
+      'event',
+      {
+        ec: 'input',
+        ea: 'searchScope',
+        el: 'layers',
+        cid: this.props.uuid,
+      },
+      { analyticsEnabled: this.props.analyticsEnabled, debug: true }
+    )
+
+    track(
+      'event',
+      {
+        ec: 'input',
+        ea: 'find',
+        el: `${this.state.findValue}`,
+        cid: this.props.uuid,
+      },
+      { analyticsEnabled: this.props.analyticsEnabled, debug: true }
+    )
+
+    track(
+      'event',
+      {
+        ec: 'input',
+        ea: 'replace',
+        el: `${this.state.replaceValue}`,
+        cid: this.props.uuid,
+      },
+      { analyticsEnabled: this.props.analyticsEnabled, debug: true }
+    )
 
     io.send('findReplaceLayers', opts)
 

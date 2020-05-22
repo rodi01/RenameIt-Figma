@@ -2,24 +2,27 @@
  * @Author: Rodrigo Soares
  * @Date: 2020-05-16 02:00:48
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2020-05-16 23:00:04
+ * @Last Modified time: 2020-05-22 00:52:21
  */
 
-import { v4 as uuidv4 } from 'uuid'
-import manifest from '../../manifest.json'
-import pkg from '../../package.json'
+import { v3 as uuidv3 } from 'uuid'
+import * as manifest from '../../manifest.json'
+import * as pkg from '../../package.json'
+import { html as io } from './io.js'
 const kUUIDKey = 'google.analytics.uuid'
 const kAnalyticsEnabled = 'analytics.enabled'
 const kAnalyticsFirstRun = 'analytics.first.run'
+const UUDID_key = 'cf564ee7-8aae-4ff2-91ef-3f62b1656b10'
 const source = 'Figma'
 const trackingId = 'UA-104184459-2'
 
-async function getUUID() {
+export async function getUUID() {
   let uuid = await figma.clientStorage.getAsync(kUUIDKey)
   if (!uuid) {
-    uuid = uuidv4()
-    await figma.clientStorage.setAsync(kUUIDKey, uuid)
+    uuid = uuidv3(String(Date.now()), UUDID_key)
   }
+
+  await figma.clientStorage.setAsync(kUUIDKey, uuid)
 
   return uuid
 }
@@ -33,10 +36,16 @@ export async function setAnalyticsEnabled(value) {
 }
 
 export async function analyticsFirstRun() {
-  return await figma.clientStorage.getAsync(kAnalyticsFirstRun)
+  let fr = await figma.clientStorage.getAsync(kAnalyticsFirstRun)
+  if (fr === undefined) fr = true
+  if (fr) {
+    await setAnalyticsFirstRun()
+  }
+
+  return fr
 }
 
-export async function setAnalyticsFirstRun() {
+async function setAnalyticsFirstRun() {
   await figma.clientStorage.setAsync(kAnalyticsFirstRun, false)
 }
 
@@ -54,14 +63,17 @@ function makeRequest(url, options) {
   }
 
   const req = new XMLHttpRequest()
-  req.open('GET', url, true)
+  req.open('GET', url)
   req.send()
 }
 
 export async function track(hitType, props, options) {
-  const isAnalyticsEnabled = await analyticsEnabled()
+  // const isAnalyticsEnabled = await analyticsEnabled()
+  const isAnalyticsEnabled = true
 
-  if (!isAnalyticsEnabled) {
+  if (options && !options.analyticsEnabled) {
+    console.log('not enabled')
+
     // the user didn't enable sharing analytics
     return "the user didn't enable sharing analytics"
   }
@@ -70,7 +82,6 @@ export async function track(hitType, props, options) {
     v: 1,
     tid: trackingId,
     ds: source,
-    cid: await getUUID(),
     t: hitType,
     an: manifest.name,
     aid: 'com.renameit.design',

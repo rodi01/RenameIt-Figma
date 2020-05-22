@@ -2,7 +2,7 @@
  * @Author: Rodrigo Soares
  * @Date: 2019-07-31 20:37:56
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2020-05-16 01:07:39
+ * @Last Modified time: 2020-05-22 00:57:19
  */
 
 import * as React from 'react'
@@ -12,9 +12,12 @@ import * as isNumber from 'is-number'
 import Preview from './Preview'
 import { html as io } from './Lib/io.js'
 import { renameData } from './Lib/DataHelper'
+import { track } from './Lib/GoogleAnalytics'
 
 interface Props {
   data: any
+  uuid: string
+  analyticsEnabled: boolean
 }
 
 interface State {
@@ -60,6 +63,11 @@ class RenameLayers extends React.Component<Props, State> {
   }
 
   componentDidMount() {
+    track(
+      'pageview',
+      { dp: '/rename', cid: this.props.uuid },
+      { analyticsEnabled: this.props.analyticsEnabled, debug: true }
+    )
     const d = JSON.parse(this.props.data)
     this.setState({
       selection: d.selection,
@@ -142,6 +150,17 @@ class RenameLayers extends React.Component<Props, State> {
       () => this.previewUpdate()
     )
 
+    track(
+      'event',
+      {
+        ec: 'keywordButton',
+        ea: e.target.getAttribute('id'),
+        el: e.target.getAttribute('data-char'),
+        cid: this.props.uuid,
+      },
+      { analyticsEnabled: this.props.analyticsEnabled, debug: true }
+    )
+
     this.nameInput.current.focus()
   }
 
@@ -160,6 +179,16 @@ class RenameLayers extends React.Component<Props, State> {
   }
 
   onSubmit() {
+    track(
+      'event',
+      {
+        ec: 'input',
+        ea: 'rename',
+        el: String(this.state.valueAttr),
+        cid: this.props.uuid,
+      },
+      { analyticsEnabled: this.props.analyticsEnabled, debug: true }
+    )
     io.send('renameLayers', {
       nameInput: this.state.valueAttr,
       sequenceInput: this.state.sequence,
