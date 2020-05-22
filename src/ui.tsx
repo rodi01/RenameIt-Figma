@@ -2,7 +2,7 @@
  * @Author: Rodrigo Soares
  * @Date: 2019-07-31 20:39:24
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2020-05-22 00:53:51
+ * @Last Modified time: 2020-05-22 11:12:07
  */
 
 import * as React from 'react'
@@ -12,6 +12,7 @@ import { WhereTo } from './Utilities'
 import RenameLayers from './RenameLayers'
 import FindReplaceLayers from './FindReplaceLayers'
 import NoSelection from './NoSelection'
+import Settings from './Settings'
 import FirstRunDialog from './FirstRunDialog'
 import './scss/main.scss'
 
@@ -71,6 +72,15 @@ class App extends React.Component<{}, States> {
 
       case WhereTo.NoSelection:
         whereDialog = <NoSelection />
+        break
+
+      case WhereTo.Settings:
+        whereDialog = (
+          <Settings
+            uuid={this.state.UUID}
+            analyticsEnabled={this.state.analyticsEnabled}
+          />
+        )
         break
 
       default:

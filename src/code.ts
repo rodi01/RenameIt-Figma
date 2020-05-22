@@ -2,7 +2,7 @@
  * @Author: Rodrigo Soares
  * @Date: 2019-07-31 20:36:11
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2020-05-19 01:57:46
+ * @Last Modified time: 2020-05-22 11:16:21
  */
 
 import { script as io } from './Lib/io.js'
@@ -61,6 +61,12 @@ async function theUI() {
     windowOptions = {
       width: 430,
       height: 305,
+    }
+  } else if (figma.command === WhereTo.Settings) {
+    to = WhereTo.Settings
+    windowOptions = {
+      width: 430,
+      height: 200,
     }
   } else {
     to = WhereTo.NoSelection

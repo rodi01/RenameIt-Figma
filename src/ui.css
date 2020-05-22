@@ -20,6 +20,7 @@ button {
 
 label {
   width: 100%;
+  color: black;
 }
 
 input {
@@ -51,4 +52,7 @@ input {
   flex-wrap: wrap;
   justify-content: left;
   padding-top: 8px;
+}
+
+label {
 }
