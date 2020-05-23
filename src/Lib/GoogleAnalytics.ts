@@ -13,7 +13,7 @@ const kUUIDKey = 'google.analytics.uuid'
 const kAnalyticsEnabled = 'analytics.enabled'
 const kAnalyticsFirstRun = 'analytics.first.run'
 const UUDID_key = 'cf564ee7-8aae-4ff2-91ef-3f62b1656b10'
-const source = 'Figma'
+const source = 'Figma 1.0.0'
 const trackingId = 'UA-104184459-2'
 
 export async function getUUID() {
@@ -28,7 +28,12 @@ export async function getUUID() {
 }
 
 export async function analyticsEnabled() {
-  return await figma.clientStorage.getAsync(kAnalyticsEnabled)
+  let ae = await figma.clientStorage.getAsync(kAnalyticsEnabled)
+  if (ae === undefined) {
+    await setAnalyticsEnabled(true)
+    ae = true
+  }
+  return ae
 }
 
 export async function setAnalyticsEnabled(value) {

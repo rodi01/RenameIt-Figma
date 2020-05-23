@@ -8,7 +8,7 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { html as io } from './Lib/io.js'
-import { WhereTo } from './Utilities.js'
+import { Button, Title, Text } from 'react-figma-plugin-ds'
 
 interface Props {
   whereTo: any
@@ -40,27 +40,22 @@ class FirstRunDialog extends React.Component<Props> {
   render() {
     return (
       <div>
-        <h1>Analytics</h1>
-        <p>
+        <Title level="h1" size="xlarge" weight="bold">
+          Analytics
+        </Title>
+        <Text className="ml-xxsmall">
           Rename It uses Google Analytics to help improve the plugin. Click on
           'Agree' to send diagnostics or 'Disagree' to disable analytics.
-        </p>
+        </Text>
         <footer>
-          <button
-            type="submit"
-            className="button--secondary"
+          <Button
             onClick={this.onDisagreeClick}
+            isSecondary
+            className="mr-xxsmall"
           >
             Disagree
-          </button>
-
-          <button
-            type="submit"
-            className="button--primary"
-            onClick={this.onAgreeClick}
-          >
-            Agree
-          </button>
+          </Button>
+          <Button onClick={this.onAgreeClick}>Agree</Button>
         </footer>
       </div>
     )
