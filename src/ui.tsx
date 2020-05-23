@@ -2,7 +2,7 @@
  * @Author: Rodrigo Soares
  * @Date: 2019-07-31 20:39:24
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2020-05-22 11:12:07
+ * @Last Modified time: 2020-05-22 13:15:21
  */
 
 import * as React from 'react'
@@ -14,7 +14,8 @@ import FindReplaceLayers from './FindReplaceLayers'
 import NoSelection from './NoSelection'
 import Settings from './Settings'
 import FirstRunDialog from './FirstRunDialog'
-import './scss/main.scss'
+import 'react-figma-plugin-ds/styles/figma-plugin-ds.min.css'
+import './scss/customStyles.scss'
 
 interface States {
   data: any
@@ -81,6 +82,12 @@ class App extends React.Component<{}, States> {
             analyticsEnabled={this.state.analyticsEnabled}
           />
         )
+        break
+
+      case WhereTo.Donate:
+        window.open('https://www.paypal.me/rodi01/5', '_blank')
+        io.send('cancel', null)
+        return
         break
 
       default:

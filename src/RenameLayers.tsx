@@ -9,6 +9,15 @@ import * as React from 'react'
 import { Rename } from '@rodi01/renameitlib'
 import * as isBlank from 'is-blank'
 import * as isNumber from 'is-number'
+import {
+  Title,
+  Divider,
+  Text,
+  Checkbox,
+  Label,
+  Input,
+  Button,
+} from 'react-figma-plugin-ds'
 import Preview from './Preview'
 import { html as io } from './Lib/io.js'
 import { renameData } from './Lib/DataHelper'
@@ -66,7 +75,7 @@ class RenameLayers extends React.Component<Props, State> {
     track(
       'pageview',
       { dp: '/rename', cid: this.props.uuid },
-      { analyticsEnabled: this.props.analyticsEnabled, debug: true }
+      { analyticsEnabled: this.props.analyticsEnabled }
     )
     const d = JSON.parse(this.props.data)
     this.setState({
@@ -158,7 +167,7 @@ class RenameLayers extends React.Component<Props, State> {
         el: e.target.getAttribute('data-char'),
         cid: this.props.uuid,
       },
-      { analyticsEnabled: this.props.analyticsEnabled, debug: true }
+      { analyticsEnabled: this.props.analyticsEnabled }
     )
 
     this.nameInput.current.focus()
@@ -187,7 +196,7 @@ class RenameLayers extends React.Component<Props, State> {
         el: String(this.state.valueAttr),
         cid: this.props.uuid,
       },
-      { analyticsEnabled: this.props.analyticsEnabled, debug: true }
+      { analyticsEnabled: this.props.analyticsEnabled }
     )
     io.send('renameLayers', {
       nameInput: this.state.valueAttr,
@@ -264,7 +273,7 @@ class RenameLayers extends React.Component<Props, State> {
     const listItems = buttons.map((b) => (
       <li key={b.id} className="keywordBtn">
         <button
-          className="button--secondary"
+          className="button button--secondary"
           title={`Shortcut: ${b.char}`}
           onClick={this.onButtonClicked}
           data-char={b.char}
@@ -276,10 +285,12 @@ class RenameLayers extends React.Component<Props, State> {
     ))
 
     return (
-      <div className="type type--11-pos">
-        <h1>Rename Selected Layers</h1>
+      <div>
+        <Title level="h1" size="xlarge" weight="bold">
+          Rename Selected Layers
+        </Title>
         <div className="nameSection inputWrapper">
-          <label>Name</label>
+          <Label>Name</Label>
           <input
             type="text"
             ref={this.nameInput}
@@ -291,7 +302,7 @@ class RenameLayers extends React.Component<Props, State> {
         </div>
 
         <div className="sequenceInput inputWrapper">
-          <label>Start from</label>
+          <Label>Start from</Label>
           <input
             type="number"
             className="input showBorder"
@@ -309,12 +320,11 @@ class RenameLayers extends React.Component<Props, State> {
         <Preview data={this.state.previewData} />
 
         <footer>
-          <button className="button--secondary" onClick={this.onCancel}>
+          <Button onClick={this.onCancel} isSecondary className="mr-xxsmall">
             Cancel
-          </button>
-          <button className="button--primary" onClick={this.onSubmit}>
-            Rename
-          </button>
+          </Button>
+
+          <Button onClick={this.onSubmit}>Rename</Button>
         </footer>
       </div>
     )

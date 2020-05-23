@@ -2,11 +2,20 @@
  * @Author: Rodrigo Soares
  * @Date: 2019-07-31 20:37:18
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2020-05-22 00:54:53
+ * @Last Modified time: 2020-05-22 15:40:42
  */
 
 import * as React from 'react'
 import { FindReplace } from '@rodi01/renameitlib'
+import {
+  Title,
+  Divider,
+  Text,
+  Checkbox,
+  Label,
+  Input,
+  Button,
+} from 'react-figma-plugin-ds'
 import { findReplaceData } from './Lib/DataHelper'
 import Preview from './Preview'
 import { html as io } from './Lib/io.js'
@@ -56,7 +65,7 @@ class FindReplaceLayers extends React.Component<Props, State> {
     track(
       'pageview',
       { dp: '/find_replace', cid: this.props.uuid },
-      { analyticsEnabled: this.props.analyticsEnabled, debug: true }
+      { analyticsEnabled: this.props.analyticsEnabled }
     )
     const d = JSON.parse(this.props.data)
     this.setState({ selection: d.selection, parsedData: d })
@@ -92,10 +101,10 @@ class FindReplaceLayers extends React.Component<Props, State> {
     )
   }
 
-  onCaseSensitiveChange() {
+  onCaseSensitiveChange(value) {
     this.setState(
       {
-        caseSensitive: !this.state.caseSensitive,
+        caseSensitive: value,
       },
       () => this.previewUpdate()
     )
@@ -137,7 +146,7 @@ class FindReplaceLayers extends React.Component<Props, State> {
         el: 'layers',
         cid: this.props.uuid,
       },
-      { analyticsEnabled: this.props.analyticsEnabled, debug: true }
+      { analyticsEnabled: this.props.analyticsEnabled }
     )
 
     track(
@@ -148,7 +157,7 @@ class FindReplaceLayers extends React.Component<Props, State> {
         el: `${this.state.findValue}`,
         cid: this.props.uuid,
       },
-      { analyticsEnabled: this.props.analyticsEnabled, debug: true }
+      { analyticsEnabled: this.props.analyticsEnabled }
     )
 
     track(
@@ -159,7 +168,7 @@ class FindReplaceLayers extends React.Component<Props, State> {
         el: `${this.state.replaceValue}`,
         cid: this.props.uuid,
       },
-      { analyticsEnabled: this.props.analyticsEnabled, debug: true }
+      { analyticsEnabled: this.props.analyticsEnabled }
     )
 
     io.send('findReplaceLayers', opts)
@@ -173,10 +182,12 @@ class FindReplaceLayers extends React.Component<Props, State> {
 
   render() {
     return (
-      <div className="findReplace type type--11-pos">
-        <h1>Find &amp; Replace Selected Layers</h1>
+      <div className="findReplace">
+        <Title level="h1" size="xlarge" weight="bold">
+          Find &amp; Replace Selected Layers
+        </Title>
         <div className="findSection inputWrapper">
-          <label>Find</label>
+          <Label>Find</Label>
           <input
             type="text"
             id="find"
@@ -188,7 +199,7 @@ class FindReplaceLayers extends React.Component<Props, State> {
         </div>
 
         <div className="replaceSection inputWrapper">
-          <label>Replace</label>
+          <Label>Replace</Label>
           <input
             type="text"
             id="replace"
@@ -198,12 +209,10 @@ class FindReplaceLayers extends React.Component<Props, State> {
           />
         </div>
 
-        <div className="inputWrapper caseSesitiveWrapper">
-          <label>Case Sensitive</label>
-          <input
-            type="checkbox"
-            id="caseSensitive"
-            checked={this.state.caseSensitive}
+        <div className="caseSesitiveWrapper">
+          <Checkbox
+            label="Case Sensitive"
+            defaultValue={this.state.caseSensitive}
             onChange={this.onCaseSensitiveChange}
           />
         </div>
@@ -211,12 +220,10 @@ class FindReplaceLayers extends React.Component<Props, State> {
         <Preview data={this.state.previewData} />
 
         <footer>
-          <button className="button--secondary" onClick={this.onCancel}>
+          <Button onClick={this.onCancel} isSecondary className="mr-xxsmall">
             Cancel
-          </button>
-          <button className="button--primary" onClick={this.onSubmit}>
-            Rename
-          </button>
+          </Button>
+          <Button onClick={this.onSubmit}>Rename</Button>
         </footer>
       </div>
     )

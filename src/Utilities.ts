@@ -2,7 +2,7 @@
  * @Author: Rodrigo Soares
  * @Date: 2019-07-31 19:01:45
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2020-05-16 00:07:04
+ * @Last Modified time: 2020-05-22 13:31:51
  */
 
 import {
@@ -19,6 +19,7 @@ export enum WhereTo {
   FindReplace = 'findReplace',
   Settings = 'settings',
   NoSelection = 'noSelection',
+  Donate = 'donate',
 }
 
 export function hasSelection(data: any) {

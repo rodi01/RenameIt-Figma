@@ -1,0 +1,41 @@
+@import './components/variables';
+@import './components/preview';
+@import './components/findReplace';
+@import './components/footer';
+@import './components/keywords';
+
+body {
+  margin: 16px;
+}
+
+a,
+a:visited {
+  color: var(--blue);
+  text-decoration: none;
+}
+
+.inputWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 16px;
+  input[type='text'] {
+    flex: 1 1;
+  }
+
+  .label {
+    flex-shrink: 0;
+    width: 70px;
+  }
+}
+
+.sequenceInput {
+  .input {
+    width: 60px;
+  }
+}
+
+input.input.showborder {
+  background-image: none !important;
+  border-color: var(--black1) !important;
+}

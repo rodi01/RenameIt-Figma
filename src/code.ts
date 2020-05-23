@@ -2,7 +2,7 @@
  * @Author: Rodrigo Soares
  * @Date: 2019-07-31 20:36:11
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2020-05-22 11:16:21
+ * @Last Modified time: 2020-05-22 14:54:15
  */
 
 import { script as io } from './Lib/io.js'
@@ -50,7 +50,8 @@ async function theUI() {
   const firstRun = await analyticsFirstRun()
   let windowOptions = {
     width: 430,
-    height: 470,
+    height: 490,
+    visible: true,
   }
 
   // Set screen to show
@@ -60,23 +61,32 @@ async function theUI() {
     to = WhereTo.FindReplace
     windowOptions = {
       width: 430,
-      height: 305,
+      height: 320,
+      visible: true,
     }
   } else if (figma.command === WhereTo.Settings) {
     to = WhereTo.Settings
     windowOptions = {
       width: 430,
-      height: 200,
+      height: 300,
+      visible: true,
     }
+  } else if (figma.command === WhereTo.Donate) {
+    to = WhereTo.Donate
+    windowOptions = { width: 0, height: 0, visible: false }
+    figma.showUI(__html__, { visible: false })
   } else {
     to = WhereTo.NoSelection
     windowOptions = {
-      width: 300,
-      height: 140,
+      width: 430,
+      height: 150,
+      visible: true,
     }
   }
 
-  const windowDim = firstRun ? { width: 430, height: 180 } : windowOptions
+  const windowDim = firstRun
+    ? { width: 430, height: 180, visible: true }
+    : windowOptions
 
   figma.showUI(__html__, windowDim)
 
