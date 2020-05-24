@@ -12,6 +12,12 @@
     {
       "name": "Find & Replace Selected Layers",
       "command": "findReplace"
-    }
+    },
+    { "separator": true },
+    {
+      "name": "Settings",
+      "command": "settings"
+    },
+    { "name": "Donate", "command": "donate" }
   ]
 }
