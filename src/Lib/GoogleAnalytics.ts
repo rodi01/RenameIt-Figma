@@ -13,7 +13,7 @@ const kUUIDKey = 'google.analytics.uuid'
 const kAnalyticsEnabled = 'analytics.enabled'
 const kAnalyticsFirstRun = 'analytics.first.run'
 const UUDID_key = 'cf564ee7-8aae-4ff2-91ef-3f62b1656b10'
-const source = 'Figma 1.0.0'
+const source = 'Figma'
 const trackingId = 'UA-104184459-2'
 
 export async function getUUID() {
