@@ -10,7 +10,7 @@
       "command": "renameLayers"
     },
     {
-      "name": "Find & Replace Selected Layers",
+      "name": "Find and Replace Selected Layers",
       "command": "findReplace"
     },
     { "separator": true },
