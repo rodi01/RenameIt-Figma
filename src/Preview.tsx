@@ -5,8 +5,9 @@
  * @Last Modified time: 2019-07-31 21:01:51
  */
 
-import * as React from "react"
-import * as isBlank from "is-blank"
+import * as React from 'react'
+import * as isBlank from 'is-blank'
+import { Text } from 'react-figma-plugin-ds'
 
 interface Props {
   data: string[]
@@ -20,14 +21,14 @@ class Preview extends React.Component<Props, State> {
   constructor(props) {
     super(props)
     this.state = {
-      preview: ""
+      preview: '',
     }
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.data !== prevProps.data) {
       this.setState({
-        preview: this.props.data.filter(val => val).join(", ")
+        preview: this.props.data.filter((val) => val).join(', '),
       })
     }
   }
@@ -40,7 +41,9 @@ class Preview extends React.Component<Props, State> {
     }
   }
   render() {
-    return <div className="preview">{this.renderPreviewText()}</div>
+    return (
+      <Text className="preview ml-xxsmall">{this.renderPreviewText()}</Text>
+    )
   }
 }
 

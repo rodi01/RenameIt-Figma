@@ -2,7 +2,7 @@
  * @Author: Rodrigo Soares
  * @Date: 2019-07-31 20:36:23
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2019-07-31 20:40:36
+ * @Last Modified time: 2020-05-15 23:58:50
  */
 
 /**
@@ -34,7 +34,8 @@ export function renameData(
     pageName,
     parentName: item.parentName,
     symbolName: item.symbolName,
-    layerStyle: item.layerStyle
+    layerStyle: item.layerStyle,
+    childLayer: item.childLayer,
   }
 }
 
@@ -54,6 +55,6 @@ export function findReplaceData(item, findText, replaceWith, caseSensitive) {
     currIdx: item.idx,
     findText,
     replaceWith,
-    caseSensitive
+    caseSensitive,
   }
 }

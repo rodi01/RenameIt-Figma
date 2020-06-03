@@ -1,18 +1,30 @@
 /*
  * @Author: Rodrigo Soares
  * @Date: 2019-07-31 20:37:18
- * @Last Modified by:   Rodrigo Soares
- * @Last Modified time: 2019-07-31 20:37:18
+ * @Last Modified by: Rodrigo Soares
+ * @Last Modified time: 2020-05-22 15:40:42
  */
 
-import * as React from "react"
-import { FindReplace } from "renameitlib"
-import { findReplaceData } from "./Lib/DataHelper"
-import Preview from "./Preview"
-import { html as io } from "./Lib/io.js"
+import * as React from 'react'
+import { FindReplace } from '@rodi01/renameitlib'
+import {
+  Title,
+  Divider,
+  Text,
+  Checkbox,
+  Label,
+  Input,
+  Button,
+} from 'react-figma-plugin-ds'
+import { findReplaceData } from './Lib/DataHelper'
+import Preview from './Preview'
+import { html as io } from './Lib/io.js'
+import { track } from './Lib/GoogleAnalytics'
 
 interface Props {
   data: any
+  uuid: string
+  analyticsEnabled: boolean
 }
 
 interface State {
@@ -32,12 +44,12 @@ class FindReplaceLayers extends React.Component<Props, State> {
     super(props)
 
     this.state = {
-      findValue: "",
-      replaceValue: "",
+      findValue: '',
+      replaceValue: '',
       caseSensitive: false,
       previewData: [],
       parsedData: null,
-      selection: null
+      selection: null,
     }
 
     this.findReplace = new FindReplace()
@@ -50,14 +62,19 @@ class FindReplaceLayers extends React.Component<Props, State> {
   }
 
   componentDidMount() {
+    track(
+      'pageview',
+      { dp: '/find_replace', cid: this.props.uuid },
+      { analyticsEnabled: this.props.analyticsEnabled }
+    )
     const d = JSON.parse(this.props.data)
     this.setState({ selection: d.selection, parsedData: d })
     this.findInput.current.focus()
 
-    document.addEventListener("keydown", this.enterFunction, false)
+    document.addEventListener('keydown', this.enterFunction, false)
   }
   componentWillUnmount() {
-    document.removeEventListener("keydown", this.enterFunction, false)
+    document.removeEventListener('keydown', this.enterFunction, false)
   }
 
   doRename(item) {
@@ -74,20 +91,20 @@ class FindReplaceLayers extends React.Component<Props, State> {
   }
 
   onFindInputChange(e) {
-    const isFind = e.target.id === "find"
+    const isFind = e.target.id === 'find'
     this.setState(
       {
         findValue: isFind ? e.target.value : this.state.findValue,
-        replaceValue: !isFind ? e.target.value : this.state.replaceValue
+        replaceValue: !isFind ? e.target.value : this.state.replaceValue,
       },
       () => this.previewUpdate()
     )
   }
 
-  onCaseSensitiveChange() {
+  onCaseSensitiveChange(value) {
     this.setState(
       {
-        caseSensitive: !this.state.caseSensitive
+        caseSensitive: value,
       },
       () => this.previewUpdate()
     )
@@ -95,7 +112,7 @@ class FindReplaceLayers extends React.Component<Props, State> {
 
   previewUpdate() {
     const renamed = []
-    this.state.selection.forEach(item => {
+    this.state.selection.forEach((item) => {
       const name = this.doRename(item)
       if (name) {
         renamed.push(name)
@@ -118,24 +135,59 @@ class FindReplaceLayers extends React.Component<Props, State> {
     const opts = {
       findText: this.state.findValue,
       replaceText: this.state.replaceValue,
-      caseSensitive: this.state.caseSensitive
+      caseSensitive: this.state.caseSensitive,
     }
 
-    io.send("findReplaceLayers", opts)
+    track(
+      'event',
+      {
+        ec: 'input',
+        ea: 'searchScope',
+        el: 'layers',
+        cid: this.props.uuid,
+      },
+      { analyticsEnabled: this.props.analyticsEnabled }
+    )
 
-    document.removeEventListener("keydown", this.enterFunction, false)
+    track(
+      'event',
+      {
+        ec: 'input',
+        ea: 'find',
+        el: `${this.state.findValue}`,
+        cid: this.props.uuid,
+      },
+      { analyticsEnabled: this.props.analyticsEnabled }
+    )
+
+    track(
+      'event',
+      {
+        ec: 'input',
+        ea: 'replace',
+        el: `${this.state.replaceValue}`,
+        cid: this.props.uuid,
+      },
+      { analyticsEnabled: this.props.analyticsEnabled }
+    )
+
+    io.send('findReplaceLayers', opts)
+
+    document.removeEventListener('keydown', this.enterFunction, false)
   }
 
   onCancel() {
-    io.send("cancel", null)
+    io.send('cancel', null)
   }
 
   render() {
     return (
-      <div className="findReplace type type--11-pos">
-        <h1>Find &amp; Replace Selected Layers</h1>
+      <div className="findReplace">
+        <Title level="h1" size="xlarge" weight="bold">
+          Find &amp; Replace Selected Layers
+        </Title>
         <div className="findSection inputWrapper">
-          <label>Find</label>
+          <Label>Find</Label>
           <input
             type="text"
             id="find"
@@ -147,7 +199,7 @@ class FindReplaceLayers extends React.Component<Props, State> {
         </div>
 
         <div className="replaceSection inputWrapper">
-          <label>Replace</label>
+          <Label>Replace</Label>
           <input
             type="text"
             id="replace"
@@ -157,12 +209,10 @@ class FindReplaceLayers extends React.Component<Props, State> {
           />
         </div>
 
-        <div className="inputWrapper caseSesitiveWrapper">
-          <label>Case Sensitive</label>
-          <input
-            type="checkbox"
-            id="caseSensitive"
-            checked={this.state.caseSensitive}
+        <div className="caseSesitiveWrapper">
+          <Checkbox
+            label="Case Sensitive"
+            defaultValue={this.state.caseSensitive}
             onChange={this.onCaseSensitiveChange}
           />
         </div>
@@ -170,12 +220,10 @@ class FindReplaceLayers extends React.Component<Props, State> {
         <Preview data={this.state.previewData} />
 
         <footer>
-          <button className="button--secondary" onClick={this.onCancel}>
+          <Button onClick={this.onCancel} isSecondary className="mr-xxsmall">
             Cancel
-          </button>
-          <button className="button--primary" onClick={this.onSubmit}>
-            Rename
-          </button>
+          </Button>
+          <Button onClick={this.onSubmit}>Rename</Button>
         </footer>
       </div>
     )
