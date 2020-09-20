@@ -22,6 +22,8 @@ import Preview from './Preview'
 import { html as io } from './Lib/io.js'
 import { renameData } from './Lib/DataHelper'
 import { track } from './Lib/GoogleAnalytics'
+import { selectMenu } from 'figma-plugin-ds'
+import 'figma-plugin-ds/dist/figma-plugin-ds.css'
 
 interface Props {
   data: any
@@ -39,6 +41,13 @@ interface State {
   hasSymbol: boolean
   hasLayerStyle: boolean
   hasChildLayer: boolean
+}
+
+declare module 'react' {
+  interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
+    // extends React's HTMLAttributes
+    icon?: string
+  }
 }
 
 class RenameLayers extends React.Component<Props, State> {
@@ -284,6 +293,8 @@ class RenameLayers extends React.Component<Props, State> {
       </li>
     ))
 
+    selectMenu.init()
+
     return (
       <div>
         <Title level="h1" size="xlarge" weight="bold">
@@ -301,19 +312,27 @@ class RenameLayers extends React.Component<Props, State> {
           />
         </div>
 
-        <div className="sequenceInput inputWrapper">
-          <Label>Start from</Label>
-          <input
-            type="number"
-            className="input showBorder"
-            value={this.state.sequence}
-            onChange={this.onSequenceInputChange}
-            min="0"
-          />
+        <div className="sequenceInput ">
+          <span className="section-title">SEQUENCE</span>
+          <div className="inputWrapper">
+            <Label>From</Label>
+            <input
+              type="number"
+              className="input showBorder"
+              value={this.state.sequence}
+              onChange={this.onSequenceInputChange}
+              min="0"
+            />
+            <select id="sequenceSelect" className="select-menu m-xxsmall">
+              <option value="1">Layer order: Top to bottom</option>
+              <option value="2">Postion: Left to right, top to bottom</option>
+              <option value="3">Positon: Top to bottom, left to right</option>
+            </select>
+          </div>
         </div>
 
         <div className="keywordsSection">
-          <span className="section-title">Keywords</span>
+          <span className="section-title">KEYWORDS</span>
           <ul className="keywords">{listItems}</ul>
         </div>
 

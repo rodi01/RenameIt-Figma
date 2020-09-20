@@ -49,7 +49,7 @@ async function theUI() {
   let to = 'noSelection'
   const firstRun = await analyticsFirstRun()
   let windowOptions = {
-    width: 430,
+    width: 460,
     height: 490,
     visible: true,
   }

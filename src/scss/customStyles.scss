@@ -35,7 +35,16 @@ a:visited {
   }
 }
 
-input.input.showborder {
+.showborder {
   background-image: none !important;
-  border-color: var(--black1) !important;
+  border: 1px solid var(--black1) !important;
+}
+
+.select-menu {
+  margin-left: var(--size-xxsmall);
+}
+
+.select-menu .select-menu__button {
+  border-color: var(--black1);
+  padding-top: 0;
 }
