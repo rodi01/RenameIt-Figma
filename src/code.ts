@@ -50,7 +50,7 @@ async function theUI() {
   const firstRun = await analyticsFirstRun()
   let windowOptions = {
     width: 460,
-    height: 490,
+    height: 510,
     visible: true,
   }
 

@@ -11,7 +11,7 @@
   "author": "Rodrigo Soares",
   "license": "ISC",
   "dependencies": {
-    "@figma/plugin-typings": "^1.15.0",
+    "@figma/plugin-typings": "^1.16.1",
     "@rodi01/renameitlib": "^1.2.3",
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
@@ -23,7 +23,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-figma-plugin-ds": "^1.0.3",
-    "sass-loader": "^8.0.2",
+    "sass-loader": "^10.0.2",
     "style-loader": "^1.2.1",
     "ts-loader": "^7.0.4",
     "typescript": "^3.9.2",
@@ -33,15 +33,15 @@
     "webpack-cli": "^3.3.11"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^2.33.0",
-    "@typescript-eslint/parser": "^2.33.0",
-    "eslint": "^7.0.0",
-    "eslint-config-airbnb": "^18.1.0",
+    "@typescript-eslint/eslint-plugin": "^4.2.0",
+    "@typescript-eslint/parser": "^4.2.0",
+    "eslint": "^7.9.0",
+    "eslint-config-airbnb": "^18.2.0",
     "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-prettier": "^3.1.3",
-    "eslint-plugin-react": "^7.20.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.6",
     "is-blank": "^2.1.0",
     "is-number": "^7.0.0",
-    "prettier": "^2.0.5"
+    "prettier": "^2.1.2"
   }
 }

@@ -2,7 +2,7 @@
  * @Author: Rodrigo Soares
  * @Date: 2019-07-31 19:01:45
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2020-05-22 13:31:51
+ * @Last Modified time: 2020-09-22 20:07:42
  */
 
 import {
@@ -12,21 +12,22 @@ import {
   hasSymbols,
   hasChildLayer,
   getChildLayer,
-} from './Lib/RenameHelper'
+  getPositionalSequence
+} from "./Lib/RenameHelper"
 
 export enum WhereTo {
-  RenameLayers = 'renameLayers',
-  FindReplace = 'findReplace',
-  Settings = 'settings',
-  NoSelection = 'noSelection',
-  Donate = 'donate',
+  RenameLayers = "renameLayers",
+  FindReplace = "findReplace",
+  Settings = "settings",
+  NoSelection = "noSelection",
+  Donate = "donate"
 }
 
-export function hasSelection(data: any) {
+export function hasSelection(data : Array) {
   return data.selection.length > 0
 }
 
-function layerObject(item: any, index) {
+function layerObject(item : any, index) {
   return {
     layerName: item.name,
     idx: index,
@@ -35,24 +36,28 @@ function layerObject(item: any, index) {
     parentName: item.parent.name,
     layerStyle: getStyle(item),
     symbolName: getSymbolName(item),
-    childLayer: getChildLayer(item),
+    childLayer: getChildLayer(item)
   }
 }
 
-export function reorderSelection(data: any) {
-  if (!hasSelection(data)) return data.selection
+export function reorderSelection(data : any) {
+  if (!hasSelection(data)) {
+    return data.selection
+  }
 
   const firstParent = data.selection[0].parent
-  const sameParent = data.selection.every(
-    (elem) => elem.parent.id === firstParent.id
-  )
+  const sameParent = data
+    .selection
+    .every((elem) => elem.parent.id === firstParent.id)
   if (sameParent) {
     const arr = []
-    firstParent.children.forEach((child) => {
-      if (data.selection.includes(child)) {
-        arr.push(child)
-      }
-    })
+    firstParent
+      .children
+      .forEach((child) => {
+        if (data.selection.includes(child)) {
+          arr.push(child)
+        }
+      })
 
     return arr
   } else {
@@ -60,21 +65,25 @@ export function reorderSelection(data: any) {
   }
 }
 
-export function parseData(data: any) {
+export function parseData(data : any) {
   const object = {
     pageName: data.name as string,
     selectionCount: data.selection.length as number,
-    selection: [] as any[],
+    selection: []as any[],
     hasLayerStyle: false as boolean,
     hasSymbol: false as boolean,
-    hasChildLayer: false as boolean,
+    hasChildLayer: false as boolean
   }
 
   const sel = reorderSelection(data)
   sel.forEach((item, index) => {
-    if (!object.hasLayerStyle) object.hasLayerStyle = hasStyles(item)
-    if (!object.hasSymbol) object.hasSymbol = hasSymbols(item)
-    if (!object.hasChildLayer) object.hasChildLayer = hasChildLayer(item)
+    if (!object.hasLayerStyle) {
+      object.hasLayerStyle = hasStyles(item)
+    }
+    if (!object.hasSymbol) 
+      object.hasSymbol = hasSymbols(item)
+    if (!object.hasChildLayer) 
+      object.hasChildLayer = hasChildLayer(item)
 
     object.selection[index] = layerObject(item, index)
   })
