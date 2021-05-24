@@ -15,5 +15,7 @@
   "search.exclude": {
     "**/dist": true
   },
-  "typescript.format.semicolons": "remove"
+  "typescript.format.semicolons": "remove",
+  "editor.formatOnSave": true,
+  "react.beautify.onSave": true
 }
