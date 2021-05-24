@@ -9,7 +9,6 @@ import * as React from 'react'
 import { FindReplace } from '@rodi01/renameitlib'
 import {
   Title,
-  Divider,
   Text,
   Checkbox,
   Label,

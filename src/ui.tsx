@@ -2,7 +2,7 @@
  * @Author: Rodrigo Soares
  * @Date: 2019-07-31 20:39:24
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2020-05-22 13:15:21
+ * @Last Modified time: 2021-05-23 20:20:26
  */
 
 import * as React from 'react'
@@ -14,7 +14,7 @@ import FindReplaceLayers from './FindReplaceLayers'
 import NoSelection from './NoSelection'
 import Settings from './Settings'
 import FirstRunDialog from './FirstRunDialog'
-import 'react-figma-plugin-ds/styles/figma-plugin-ds.min.css'
+import "react-figma-plugin-ds/figma-plugin-ds.css";
 import './scss/customStyles.scss'
 
 interface States {

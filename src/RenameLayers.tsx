@@ -2,7 +2,7 @@
  * @Author: Rodrigo Soares
  * @Date: 2019-07-31 20:37:56
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2020-05-22 11:19:52
+ * @Last Modified time: 2021-05-23 20:12:14
  */
 
 import * as React from 'react'
@@ -11,7 +11,6 @@ import * as isBlank from 'is-blank'
 import * as isNumber from 'is-number'
 import {
   Title,
-  Divider,
   Text,
   Checkbox,
   Label,
