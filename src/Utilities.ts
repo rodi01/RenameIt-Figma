@@ -2,7 +2,7 @@
  * @Author: Rodrigo Soares
  * @Date: 2019-07-31 19:01:45
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2020-09-22 20:07:42
+ * @Last Modified time: 2021-05-23 20:58:46
  */
 
 import {
@@ -23,7 +23,7 @@ export enum WhereTo {
   Donate = "donate"
 }
 
-export function hasSelection(data : Array) {
+export function hasSelection(data : any) {
   return data.selection.length > 0
 }
 
