@@ -2,11 +2,11 @@
  * @Author: Rodrigo Soares
  * @Date: 2019-07-31 20:39:24
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2021-05-23 20:20:26
+ * @Last Modified time: 2022-04-02 00:40:44
  */
 
 import * as React from 'react'
-import * as ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import { html as io } from './Lib/io.js'
 import { WhereTo } from './Utilities'
 import RenameLayers from './RenameLayers'
@@ -14,7 +14,7 @@ import FindReplaceLayers from './FindReplaceLayers'
 import NoSelection from './NoSelection'
 import Settings from './Settings'
 import FirstRunDialog from './FirstRunDialog'
-import "react-figma-plugin-ds/figma-plugin-ds.css";
+import 'react-figma-plugin-ds/figma-plugin-ds.css'
 import './scss/customStyles.scss'
 
 interface States {
@@ -25,6 +25,10 @@ interface States {
   analyticsEnabled: boolean
   windownDim: any
 }
+
+// Root Element
+const rootElement = document.getElementById('react-page')
+const root = createRoot(rootElement)
 
 class App extends React.Component<{}, States> {
   state: States = {
@@ -100,6 +104,7 @@ class App extends React.Component<{}, States> {
         <FirstRunDialog
           whereTo={whereDialog}
           windowDim={this.state.windownDim}
+          root={root}
         />
       )
     }
@@ -112,4 +117,4 @@ class App extends React.Component<{}, States> {
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('react-page'))
+root.render(<App />)
