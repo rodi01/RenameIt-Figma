@@ -15,7 +15,6 @@
   "search.exclude": {
     "**/dist": true
   },
-  "typescript.format.semicolons": "remove",
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
   "editor.formatOnSave": true,
-  "react.beautify.onSave": true
 }

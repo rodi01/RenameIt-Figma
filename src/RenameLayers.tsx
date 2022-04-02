@@ -2,21 +2,14 @@
  * @Author: Rodrigo Soares
  * @Date: 2019-07-31 20:37:56
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2021-05-23 20:12:14
+ * @Last Modified time: 2022-04-02 00:45:54
  */
 
 import * as React from 'react'
 import { Rename } from '@rodi01/renameitlib'
 import * as isBlank from 'is-blank'
 import * as isNumber from 'is-number'
-import {
-  Title,
-  Text,
-  Checkbox,
-  Label,
-  Input,
-  Button,
-} from 'react-figma-plugin-ds'
+import { Title, Label, Button } from 'react-figma-plugin-ds'
 import Preview from './Preview'
 import { html as io } from './Lib/io.js'
 import { renameData } from './Lib/DataHelper'
@@ -40,6 +33,7 @@ interface State {
   hasSymbol: boolean
   hasLayerStyle: boolean
   hasChildLayer: boolean
+  selectValue: string
 }
 
 declare module 'react' {
@@ -66,6 +60,7 @@ class RenameLayers extends React.Component<Props, State> {
       hasSymbol: false,
       hasLayerStyle: false,
       hasChildLayer: false,
+      selectValue: 'layerList',
     }
 
     this.rename = new Rename({ allowChildLayer: true })
@@ -77,6 +72,7 @@ class RenameLayers extends React.Component<Props, State> {
     this.onCancel = this.onCancel.bind(this)
     this.enterFunction = this.enterFunction.bind(this)
     this.nameInput = React.createRef()
+    this.onSequenceTypeChange = this.onSequenceTypeChange.bind(this)
   }
 
   componentDidMount() {
@@ -149,6 +145,15 @@ class RenameLayers extends React.Component<Props, State> {
       this.state.parsedData.pageName
     )
 
+    // check for sequence type
+    if (this.state.selectValue === 'xPos') {
+      options.currIdx = options.xIdx
+    } else if (this.state.selectValue === 'yPos') {
+      options.currIdx = options.yIdx
+    }
+
+    console.log(this.state.selectValue)
+
     return this.rename.layer({
       ...item,
       ...options,
@@ -179,6 +184,12 @@ class RenameLayers extends React.Component<Props, State> {
     )
 
     this.nameInput.current.focus()
+  }
+
+  onSequenceTypeChange(e) {
+    console.log(e.value)
+
+    this.setState({ selectValue: e.value }, () => this.previewUpdate())
   }
 
   previewUpdate() {
@@ -292,8 +303,6 @@ class RenameLayers extends React.Component<Props, State> {
       </li>
     ))
 
-    selectMenu.init()
-
     return (
       <div>
         <Title level="h1" size="xlarge" weight="bold">
@@ -304,7 +313,7 @@ class RenameLayers extends React.Component<Props, State> {
           <input
             type="text"
             ref={this.nameInput}
-            className="input showBorder"
+            className="input"
             value={this.state.valueAttr}
             onChange={this.onNameInputChange}
             placeholder="Item %n"
@@ -322,10 +331,20 @@ class RenameLayers extends React.Component<Props, State> {
               onChange={this.onSequenceInputChange}
               min="0"
             />
-            <select id="sequenceSelect" className="select-menu m-xxsmall">
-              <option value="1">Layer order: Top to bottom</option>
-              <option value="2">Postion: Left to right, top to bottom</option>
-              <option value="3">Positon: Top to bottom, left to right</option>
+
+            <select
+              id="sequenceSelect"
+              className="select-menu m-xxsmall"
+              defaultValue={this.state.selectValue}
+              onChange={this.onSequenceTypeChange}
+            >
+              <option value="layerList">Layer order: Top to bottom</option>
+              <option value="xPos">
+                Postion: Left to right, top to bottom
+              </option>
+              <option value="yPos">
+                Positon: Top to bottom, left to right
+              </option>
             </select>
           </div>
         </div>

@@ -2,19 +2,12 @@
  * @Author: Rodrigo Soares
  * @Date: 2019-07-31 20:37:18
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2020-05-22 15:40:42
+ * @Last Modified time: 2022-04-02 00:02:06
  */
 
 import * as React from 'react'
-import { FindReplace } from '@rodi01/renameitlib'
-import {
-  Title,
-  Text,
-  Checkbox,
-  Label,
-  Input,
-  Button,
-} from 'react-figma-plugin-ds'
+import FindReplace from '@rodi01/renameitlib'
+import { Button, Checkbox, Label, Title } from 'react-figma-plugin-ds'
 import { findReplaceData } from './Lib/DataHelper'
 import Preview from './Preview'
 import { html as io } from './Lib/io.js'

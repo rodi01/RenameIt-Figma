@@ -28,7 +28,7 @@ export function hasSelection(data : any) {
 }
 
 function layerObject(item : any, index) {
-  return {
+  const obj =  {
     layerName: item.name,
     idx: index,
     width: item.width,
@@ -36,8 +36,17 @@ function layerObject(item : any, index) {
     parentName: item.parent.name,
     layerStyle: getStyle(item),
     symbolName: getSymbolName(item),
-    childLayer: getChildLayer(item)
+    childLayer: getChildLayer(item),
+    x: item.x,
+    y: item.y,
+    maxX: 0,
+    maxY: 0
   }
+
+  obj.maxX = obj.x + obj.width
+  obj.maxY = obj.y + obj.height
+
+  return obj
 }
 
 export function reorderSelection(data : any) {
@@ -75,7 +84,7 @@ export function parseData(data : any) {
     hasChildLayer: false as boolean
   }
 
-  const sel = reorderSelection(data)
+  let sel = reorderSelection(data)
   sel.forEach((item, index) => {
     if (!object.hasLayerStyle) {
       object.hasLayerStyle = hasStyles(item)
@@ -88,5 +97,8 @@ export function parseData(data : any) {
     object.selection[index] = layerObject(item, index)
   })
 
+  // Positional Sequence
+  object.selection = getPositionalSequence(object.selection)
+  
   return object
 }

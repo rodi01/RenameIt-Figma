@@ -1,14 +1,14 @@
-const HtmlWebpackInlineSourcePlugin = require("html-webpack-inline-source-plugin")
-const HtmlWebpackPlugin = require("html-webpack-plugin")
-const path = require("path")
+const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require('path')
 
 module.exports = (env, argv) => ({
   // This is necessary because Figma's 'eval' works differently than normal eval
-  devtool: argv.mode === "production" ? false : "inline-source-map",
+  devtool: argv.mode === 'production' ? false : 'inline-source-map',
 
   entry: {
-    ui: "./src/ui.tsx", // The entry point for your UI code
-    code: "./src/code.ts" // The entry point for your plugin code
+    ui: './src/ui.tsx', // The entry point for your UI code
+    code: './src/code.ts', // The entry point for your plugin code
   },
 
   module: {
@@ -16,60 +16,61 @@ module.exports = (env, argv) => ({
       // Converts TypeScript code to JavaScript
       {
         test: /\.tsx?$/,
-        use: "ts-loader",
-        exclude: /node_modules/
+        use: 'ts-loader',
+        exclude: /node_modules/,
       },
 
       // Enables including CSS by doing "import './file.css'" in your TypeScript code
       {
         test: /\.css$/,
-        loader: [
+        use: [
           {
-            loader: "style-loader"
+            loader: 'style-loader',
           },
           {
-            loader: "css-loader"
-          }
-        ]
+            loader: 'css-loader',
+          },
+        ],
       },
 
       {
         test: /\.scss$/,
-        use: ["style-loader", "css-loader", "sass-loader"]
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
 
       // Allows you to use "<%= require('./file.svg') %>" in your HTML code to get a
       // data URI
       {
         test: /\.(png|jpg|gif|webp|svg)$/,
-        loader: [
+        use: [
           {
-            loader: "url-loader"
-          }
-        ]
-      }
-    ]
+            loader: 'url-loader',
+          },
+        ],
+      },
+    ],
   },
 
   // Webpack tries these extensions for you if you omit the extension like "import
   // './file'"
   resolve: {
-    extensions: [".tsx", ".ts", ".jsx", ".js"]
+    extensions: ['.tsx', '.ts', '.jsx', '.js'],
   },
 
   output: {
-    filename: "[name].js",
-    path: path.resolve(__dirname, "dist") // Compile into a folder called "dist"
+    filename: '[name].js',
+    path: path.resolve(__dirname, 'dist'), // Compile into a folder called "dist"
   },
 
   // Tells Webpack to generate "ui.html" and to inline "ui.ts" into it
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./src/ui.html",
-      filename: "ui.html",
-      inlineSource: ".(js)$",
-      chunks: ["ui"]
+      inject: 'body',
+      template: './src/ui.html',
+      filename: 'ui.html',
+      inlineSource: '.(js)$',
+      chunks: ['ui'],
     }),
-    new HtmlWebpackInlineSourcePlugin()
-  ]
+    new HtmlWebpackInlineSourcePlugin(HtmlWebpackPlugin),
+  ],
 })
