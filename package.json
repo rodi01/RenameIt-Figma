@@ -4,7 +4,8 @@
   "description": "\"Keep your Figma files organized, batch rename layers and frames.\"",
   "main": "code.js",
   "scripts": {
-    "dev": "webpack --watch --mode development --devtool inline-source-map --config webpack.config.js",
+    "dev": "webpack --watch --mode=development",
+    "build": "webpack --mode=development",
     "prod": "webpack --mode production --devtool inline-source-map --config webpack.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -22,7 +23,7 @@
     "node-sass": "^7.0.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "react-figma-plugin-ds": "^2.3.0",
+    "react-figma-plugin-ds": "git+https://github.com/rodi01/react-figma-plugin-ds.git",
     "sass-loader": "^12.6.0",
     "style-loader": "^3.3.1",
     "ts-loader": "^9.2.8",

@@ -2,7 +2,7 @@
  * @Author: Rodrigo Soares
  * @Date: 2019-07-31 20:38:59
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2019-07-31 21:01:51
+ * @Last Modified time: 2022-04-02 20:37:47
  */
 
 import * as React from 'react'
@@ -37,7 +37,12 @@ class Preview extends React.Component<Props, State> {
     if (isBlank(this.state.preview)) {
       return <span>&nbsp;</span>
     } else {
-      return `Preview: ${this.state.preview}`
+      return (
+        <span>
+          <strong>Preview:</strong>&nbsp;
+          {this.state.preview}
+        </span>
+      )
     }
   }
   render() {

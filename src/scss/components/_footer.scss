@@ -1,7 +1,8 @@
 footer {
   display: flex;
   justify-content: flex-end;
-  margin-top: 24px;
+  position: sticky;
+  bottom: 0;
 
   button {
     margin-left: var(--size-xxsmall);

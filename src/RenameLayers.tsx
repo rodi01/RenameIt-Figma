@@ -2,20 +2,21 @@
  * @Author: Rodrigo Soares
  * @Date: 2019-07-31 20:37:56
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2022-04-02 00:45:54
+ * @Last Modified time: 2022-04-02 20:16:18
  */
 
 import * as React from 'react'
 import { Rename } from '@rodi01/renameitlib'
 import * as isBlank from 'is-blank'
 import * as isNumber from 'is-number'
-import { Title, Label, Button } from 'react-figma-plugin-ds'
+import { Title, Label, Button, Select } from 'react-figma-plugin-ds'
+// import { Title, Label, Button, Select, Input } from 'react-figma-plugin-ds'
 import Preview from './Preview'
 import { html as io } from './Lib/io.js'
 import { renameData } from './Lib/DataHelper'
 import { track } from './Lib/GoogleAnalytics'
 import { selectMenu } from 'figma-plugin-ds'
-import 'figma-plugin-ds/dist/figma-plugin-ds.css'
+// import 'figma-plugin-ds/dist/figma-plugin-ds.css'
 
 interface Props {
   data: any
@@ -152,8 +153,6 @@ class RenameLayers extends React.Component<Props, State> {
       options.currIdx = options.yIdx
     }
 
-    console.log(this.state.selectValue)
-
     return this.rename.layer({
       ...item,
       ...options,
@@ -187,8 +186,6 @@ class RenameLayers extends React.Component<Props, State> {
   }
 
   onSequenceTypeChange(e) {
-    console.log(e.value)
-
     this.setState({ selectValue: e.value }, () => this.previewUpdate())
   }
 
@@ -303,6 +300,8 @@ class RenameLayers extends React.Component<Props, State> {
       </li>
     ))
 
+    // selectMenu.init()
+
     return (
       <div>
         <Title level="h1" size="xlarge" weight="bold">
@@ -310,42 +309,71 @@ class RenameLayers extends React.Component<Props, State> {
         </Title>
         <div className="nameSection inputWrapper">
           <Label>Name</Label>
-          <input
-            type="text"
-            ref={this.nameInput}
-            className="input"
-            value={this.state.valueAttr}
-            onChange={this.onNameInputChange}
-            placeholder="Item %n"
-          />
+          <div className="input">
+            <input
+              type="input"
+              ref={this.nameInput}
+              className="input__field showBorder"
+              value={this.state.valueAttr}
+              onChange={this.onNameInputChange}
+              placeholder="Item %n"
+            />
+          </div>
         </div>
 
         <div className="sequenceInput ">
           <span className="section-title">SEQUENCE</span>
           <div className="inputWrapper">
             <Label>From</Label>
-            <input
-              type="number"
-              className="input showBorder"
-              value={this.state.sequence}
-              onChange={this.onSequenceInputChange}
-              min="0"
+
+            <div className="input">
+              <input
+                type="input"
+                className="input__field showBorder"
+                value={this.state.sequence}
+                onChange={this.onSequenceInputChange}
+                min="0"
+              />
+            </div>
+            <Label className="labelAuto">Order by</Label>
+            <Select
+              placeholder="Select item with groups"
+              className="sequenceMenu"
+              defaultValue={this.state.selectValue}
+              onChange={this.onSequenceTypeChange}
+              options={[
+                {
+                  value: 'layerList',
+                  label: 'Layer List',
+                  iconClass: 'layerList',
+                },
+                { divider: true, value: 1, label: '' },
+                {
+                  value: 'xPos',
+                  label: 'Left to right, top to bottom',
+                  iconClass: 'xPos',
+                },
+                {
+                  value: 'yPos',
+                  label: 'Top to bottom, left to right',
+                  iconClass: 'yPos',
+                },
+              ]}
             />
 
-            <select
+            {/* <select
               id="sequenceSelect"
               className="select-menu m-xxsmall"
               defaultValue={this.state.selectValue}
               onChange={this.onSequenceTypeChange}
             >
-              <option value="layerList">Layer order: Top to bottom</option>
-              <option value="xPos">
-                Postion: Left to right, top to bottom
+              <option value="layerList" className="layerList">
+                Top to bottom
               </option>
-              <option value="yPos">
-                Positon: Top to bottom, left to right
-              </option>
-            </select>
+              <option className="divider" value="1"></option>
+              <option value="xPos">Left to right, top to bottom</option>
+              <option value="yPos">Top to bottom, left to right</option>
+            </select> */}
           </div>
         </div>
 

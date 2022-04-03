@@ -15,6 +15,5 @@
   "search.exclude": {
     "**/dist": true
   },
-  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": true
 }
