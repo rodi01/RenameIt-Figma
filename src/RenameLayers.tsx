@@ -2,7 +2,7 @@
  * @Author: Rodrigo Soares
  * @Date: 2019-07-31 20:37:56
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2022-04-03 01:21:22
+ * @Last Modified time: 2022-04-03 01:50:34
  */
 
 import * as React from 'react'
@@ -342,7 +342,7 @@ class RenameLayers extends React.Component<Props, State> {
               options={[
                 {
                   value: 'layerList',
-                  label: 'Layer List',
+                  label: 'Layer Panel',
                   iconClass: 'layerList',
                 },
                 { divider: true, value: 1, label: '' },

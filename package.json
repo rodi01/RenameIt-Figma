@@ -1,6 +1,6 @@
 {
   "name": "rename-it-figma",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "\"Keep your Figma files organized, batch rename layers and frames.\"",
   "main": "code.js",
   "scripts": {
