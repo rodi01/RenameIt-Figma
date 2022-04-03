@@ -15,5 +15,5 @@
   "search.exclude": {
     "**/dist": true
   },
-  "typescript.format.semicolons": "remove"
+  "editor.formatOnSave": true
 }

@@ -1,18 +1,18 @@
 /*
  * @Author: Rodrigo Soares
  * @Date: 2019-07-31 20:38:15
- * @Last Modified by:   Rodrigo Soares
- * @Last Modified time: 2019-07-31 20:38:15
+ * @Last Modified by: Rodrigo Soares
+ * @Last Modified time: 2022-04-02 00:45:00
  */
 
 import * as React from 'react'
-import * as ReactDOM from 'react-dom'
 import { html as io } from './Lib/io.js'
 import { Button, Title, Text } from 'react-figma-plugin-ds'
 
 interface Props {
   whereTo: any
   windowDim: any
+  root: any
 }
 
 class FirstRunDialog extends React.Component<Props> {
@@ -34,7 +34,7 @@ class FirstRunDialog extends React.Component<Props> {
 
   renderNextScreen() {
     io.send('resizeViewport', this.props.windowDim)
-    ReactDOM.render(this.props.whereTo, document.getElementById('react-page'))
+    this.props.root.render(this.props.whereTo)
   }
 
   render() {

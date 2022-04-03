@@ -2,22 +2,14 @@
  * @Author: Rodrigo Soares
  * @Date: 2019-07-31 20:37:56
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2020-05-22 11:19:52
+ * @Last Modified time: 2022-04-03 01:21:22
  */
 
 import * as React from 'react'
 import { Rename } from '@rodi01/renameitlib'
 import * as isBlank from 'is-blank'
 import * as isNumber from 'is-number'
-import {
-  Title,
-  Divider,
-  Text,
-  Checkbox,
-  Label,
-  Input,
-  Button,
-} from 'react-figma-plugin-ds'
+import { Title, Label, Button, Select } from 'react-figma-plugin-ds'
 import Preview from './Preview'
 import { html as io } from './Lib/io.js'
 import { renameData } from './Lib/DataHelper'
@@ -27,6 +19,7 @@ interface Props {
   data: any
   uuid: string
   analyticsEnabled: boolean
+  sequenceType: string
 }
 
 interface State {
@@ -39,6 +32,14 @@ interface State {
   hasSymbol: boolean
   hasLayerStyle: boolean
   hasChildLayer: boolean
+  selectValue: string
+}
+
+declare module 'react' {
+  interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
+    // extends React's HTMLAttributes
+    icon?: string
+  }
 }
 
 class RenameLayers extends React.Component<Props, State> {
@@ -58,6 +59,7 @@ class RenameLayers extends React.Component<Props, State> {
       hasSymbol: false,
       hasLayerStyle: false,
       hasChildLayer: false,
+      selectValue: null,
     }
 
     this.rename = new Rename({ allowChildLayer: true })
@@ -69,6 +71,7 @@ class RenameLayers extends React.Component<Props, State> {
     this.onCancel = this.onCancel.bind(this)
     this.enterFunction = this.enterFunction.bind(this)
     this.nameInput = React.createRef()
+    this.onSequenceTypeChange = this.onSequenceTypeChange.bind(this)
   }
 
   componentDidMount() {
@@ -84,6 +87,7 @@ class RenameLayers extends React.Component<Props, State> {
       hasLayerStyle: d.hasLayerStyle,
       hasSymbol: d.hasSymbol,
       hasChildLayer: d.hasChildLayer,
+      selectValue: this.props.sequenceType,
     })
 
     this.nameInput.current.focus()
@@ -141,6 +145,13 @@ class RenameLayers extends React.Component<Props, State> {
       this.state.parsedData.pageName
     )
 
+    // check for sequence type
+    if (this.state.selectValue === 'xPos') {
+      options.currIdx = options.xIdx
+    } else if (this.state.selectValue === 'yPos') {
+      options.currIdx = options.yIdx
+    }
+
     return this.rename.layer({
       ...item,
       ...options,
@@ -173,6 +184,10 @@ class RenameLayers extends React.Component<Props, State> {
     this.nameInput.current.focus()
   }
 
+  onSequenceTypeChange(e) {
+    this.setState({ selectValue: e.value }, () => this.previewUpdate())
+  }
+
   previewUpdate() {
     let renamed = []
     this.state.selection.forEach((item, index) => {
@@ -201,6 +216,7 @@ class RenameLayers extends React.Component<Props, State> {
     io.send('renameLayers', {
       nameInput: this.state.valueAttr,
       sequenceInput: this.state.sequence,
+      sequenceType: this.state.selectValue,
     })
   }
 
@@ -291,29 +307,62 @@ class RenameLayers extends React.Component<Props, State> {
         </Title>
         <div className="nameSection inputWrapper">
           <Label>Name</Label>
-          <input
-            type="text"
-            ref={this.nameInput}
-            className="input showBorder"
-            value={this.state.valueAttr}
-            onChange={this.onNameInputChange}
-            placeholder="Item %n"
-          />
+          <div className="input">
+            <input
+              type="input"
+              ref={this.nameInput}
+              className="input__field showBorder"
+              value={this.state.valueAttr}
+              onChange={this.onNameInputChange}
+              placeholder="Item %n"
+            />
+          </div>
         </div>
 
-        <div className="sequenceInput inputWrapper">
-          <Label>Start from</Label>
-          <input
-            type="number"
-            className="input showBorder"
-            value={this.state.sequence}
-            onChange={this.onSequenceInputChange}
-            min="0"
-          />
+        <div className="sequenceInput ">
+          <span className="section-title">SEQUENCE</span>
+          <div className="inputWrapper">
+            <Label>From</Label>
+
+            <div className="input">
+              <input
+                type="input"
+                className="input__field showBorder"
+                value={this.state.sequence}
+                onChange={this.onSequenceInputChange}
+                min="0"
+              />
+            </div>
+            <Label className="labelAuto">Order by</Label>
+            <Select
+              placeholder="Select item with groups"
+              className="sequenceMenu"
+              defaultValue={this.state.selectValue}
+              onChange={this.onSequenceTypeChange}
+              options={[
+                {
+                  value: 'layerList',
+                  label: 'Layer List',
+                  iconClass: 'layerList',
+                },
+                { divider: true, value: 1, label: '' },
+                {
+                  value: 'xPos',
+                  label: 'Left to right, top to bottom',
+                  iconClass: 'xPos',
+                },
+                {
+                  value: 'yPos',
+                  label: 'Top to bottom, left to right',
+                  iconClass: 'yPos',
+                },
+              ]}
+            />
+          </div>
         </div>
 
         <div className="keywordsSection">
-          <span className="section-title">Keywords</span>
+          <span className="section-title">KEYWORDS</span>
           <ul className="keywords">{listItems}</ul>
         </div>
 

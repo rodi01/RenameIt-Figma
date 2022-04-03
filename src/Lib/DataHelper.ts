@@ -2,7 +2,7 @@
  * @Author: Rodrigo Soares
  * @Date: 2019-07-31 20:36:23
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2020-05-15 23:58:50
+ * @Last Modified time: 2021-07-09 11:01:24
  */
 
 /**
@@ -36,6 +36,10 @@ export function renameData(
     symbolName: item.symbolName,
     layerStyle: item.layerStyle,
     childLayer: item.childLayer,
+    x: item.x,
+    y: item.y,
+    xIdx: item.xIdx,
+    yIdx: item.yIdx
   }
 }
 

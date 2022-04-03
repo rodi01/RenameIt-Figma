@@ -2,13 +2,13 @@
  * @Author: Rodrigo Soares
  * @Date: 2019-07-31 20:38:15
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2020-05-22 15:07:48
+ * @Last Modified time: 2021-05-23 20:21:59
  */
 
 import * as React from 'react'
 import { html as io } from './Lib/io.js'
 import { track } from './Lib/GoogleAnalytics'
-import { Title, Divider, Text, Checkbox } from 'react-figma-plugin-ds'
+import { Title, Text, Checkbox, } from 'react-figma-plugin-ds'
 
 interface Props {
   uuid: string
@@ -74,7 +74,7 @@ class Settings extends React.Component<Props, State> {
           onChange={this.onAnalyticsChange}
         />
 
-        <Divider />
+        <hr />
         <div className="section-title">About</div>
         <div className="flex">
           <a
