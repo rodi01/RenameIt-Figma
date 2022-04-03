@@ -6,18 +6,17 @@
   "main": "dist/code.js",
   "menu": [
     {
-      "name": "1. Rename Selected Layers",
+      "name": "Rename Selected Layers",
       "command": "renameLayers"
     },
     {
-      "name": "2. Find & Replace Selected Layers",
+      "name": "Find & Replace Selected Layers",
       "command": "findReplace"
     },
     { "separator": true },
     {
-      "name": "3. Settings",
+      "name": "Settings",
       "command": "settings"
-    },
-    { "name": "4. Donate", "command": "donate" }
+    }
   ]
 }

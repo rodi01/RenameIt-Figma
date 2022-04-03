@@ -2,7 +2,7 @@
  * @Author: Rodrigo Soares
  * @Date: 2019-07-31 20:39:24
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2022-04-02 00:40:44
+ * @Last Modified time: 2022-04-02 22:12:13
  */
 
 import * as React from 'react'
@@ -24,6 +24,7 @@ interface States {
   firstRun: boolean
   analyticsEnabled: boolean
   windownDim: any
+  sequenceType: string
 }
 
 // Root Element
@@ -38,6 +39,7 @@ class App extends React.Component<{}, States> {
     firstRun: null,
     analyticsEnabled: null,
     windownDim: null,
+    sequenceType: null,
   }
 
   async componentDidMount() {
@@ -49,6 +51,7 @@ class App extends React.Component<{}, States> {
       firstRun: msg.firstRun,
       analyticsEnabled: msg.analyticsEnabled,
       windownDim: msg.windowDim,
+      sequenceType: msg.sequenceType,
     })
   }
 
@@ -61,6 +64,7 @@ class App extends React.Component<{}, States> {
             data={JSON.stringify(this.state.data)}
             uuid={this.state.UUID}
             analyticsEnabled={this.state.analyticsEnabled}
+            sequenceType={this.state.sequenceType}
           />
         )
         break

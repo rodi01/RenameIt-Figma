@@ -2,7 +2,7 @@
  * @Author: Rodrigo Soares
  * @Date: 2019-07-31 19:01:45
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2021-05-23 20:58:46
+ * @Last Modified time: 2022-04-03 01:19:04
  */
 
 import {
@@ -14,6 +14,8 @@ import {
   getChildLayer,
   getPositionalSequence
 } from "./Lib/RenameHelper"
+
+const kSequenceType = 'sequenceOrder' // Sequence type key
 
 export enum WhereTo {
   RenameLayers = "renameLayers",
@@ -29,6 +31,7 @@ export function hasSelection(data : any) {
 
 function layerObject(item : any, index) {
   const obj =  {
+    id: item.id,
     layerName: item.name,
     idx: index,
     width: item.width,
@@ -81,7 +84,7 @@ export function parseData(data : any) {
     selection: []as any[],
     hasLayerStyle: false as boolean,
     hasSymbol: false as boolean,
-    hasChildLayer: false as boolean
+    hasChildLayer: false as boolean,
   }
 
   let sel = reorderSelection(data)
@@ -95,6 +98,7 @@ export function parseData(data : any) {
       object.hasChildLayer = hasChildLayer(item)
 
     object.selection[index] = layerObject(item, index)
+    
   })
 
   // Positional Sequence
@@ -102,3 +106,20 @@ export function parseData(data : any) {
   
   return object
 }
+
+// Save sequence type
+export async function getSequenceType() {
+  return await figma.clientStorage.getAsync(kSequenceType)
+}
+
+export async function setSequenceType(type) {
+  await figma.clientStorage.setAsync(kSequenceType, type)
+}
+
+export async function sequenceTypeFirstRun() {
+  const sType = await figma.clientStorage.getAsync(kSequenceType)  
+  if (sType === undefined) {
+    await setSequenceType('layerList')
+  }
+}
+

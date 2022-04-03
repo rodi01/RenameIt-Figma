@@ -2,7 +2,7 @@
  * @Author: Rodrigo Soares
  * @Date: 2019-07-31 20:37:56
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2022-04-02 20:16:18
+ * @Last Modified time: 2022-04-03 01:21:22
  */
 
 import * as React from 'react'
@@ -10,18 +10,16 @@ import { Rename } from '@rodi01/renameitlib'
 import * as isBlank from 'is-blank'
 import * as isNumber from 'is-number'
 import { Title, Label, Button, Select } from 'react-figma-plugin-ds'
-// import { Title, Label, Button, Select, Input } from 'react-figma-plugin-ds'
 import Preview from './Preview'
 import { html as io } from './Lib/io.js'
 import { renameData } from './Lib/DataHelper'
 import { track } from './Lib/GoogleAnalytics'
-import { selectMenu } from 'figma-plugin-ds'
-// import 'figma-plugin-ds/dist/figma-plugin-ds.css'
 
 interface Props {
   data: any
   uuid: string
   analyticsEnabled: boolean
+  sequenceType: string
 }
 
 interface State {
@@ -61,7 +59,7 @@ class RenameLayers extends React.Component<Props, State> {
       hasSymbol: false,
       hasLayerStyle: false,
       hasChildLayer: false,
-      selectValue: 'layerList',
+      selectValue: null,
     }
 
     this.rename = new Rename({ allowChildLayer: true })
@@ -89,6 +87,7 @@ class RenameLayers extends React.Component<Props, State> {
       hasLayerStyle: d.hasLayerStyle,
       hasSymbol: d.hasSymbol,
       hasChildLayer: d.hasChildLayer,
+      selectValue: this.props.sequenceType,
     })
 
     this.nameInput.current.focus()
@@ -217,6 +216,7 @@ class RenameLayers extends React.Component<Props, State> {
     io.send('renameLayers', {
       nameInput: this.state.valueAttr,
       sequenceInput: this.state.sequence,
+      sequenceType: this.state.selectValue,
     })
   }
 
@@ -300,8 +300,6 @@ class RenameLayers extends React.Component<Props, State> {
       </li>
     ))
 
-    // selectMenu.init()
-
     return (
       <div>
         <Title level="h1" size="xlarge" weight="bold">
@@ -360,20 +358,6 @@ class RenameLayers extends React.Component<Props, State> {
                 },
               ]}
             />
-
-            {/* <select
-              id="sequenceSelect"
-              className="select-menu m-xxsmall"
-              defaultValue={this.state.selectValue}
-              onChange={this.onSequenceTypeChange}
-            >
-              <option value="layerList" className="layerList">
-                Top to bottom
-              </option>
-              <option className="divider" value="1"></option>
-              <option value="xPos">Left to right, top to bottom</option>
-              <option value="yPos">Top to bottom, left to right</option>
-            </select> */}
           </div>
         </div>
 

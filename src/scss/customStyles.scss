@@ -22,11 +22,13 @@ a:visited {
 
   .label {
     flex-shrink: 0;
-    width: 70px;
+    width: 60px;
   }
 }
 
-.nameSection .input { flex: 1 1; }
+.nameSection .input, .findReplace .input { flex: 1 1; }
+
+.findReplace .label { width: 70px; }
 
 .sequenceInput {
   .input {

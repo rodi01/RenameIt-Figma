@@ -2,11 +2,11 @@
  * @Author: Rodrigo Soares
  * @Date: 2019-07-31 20:37:18
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2022-04-02 00:02:06
+ * @Last Modified time: 2022-04-02 21:21:12
  */
 
 import * as React from 'react'
-import FindReplace from '@rodi01/renameitlib'
+import { FindReplace } from '@rodi01/renameitlib'
 import { Button, Checkbox, Label, Title } from 'react-figma-plugin-ds'
 import { findReplaceData } from './Lib/DataHelper'
 import Preview from './Preview'
@@ -180,25 +180,29 @@ class FindReplaceLayers extends React.Component<Props, State> {
         </Title>
         <div className="findSection inputWrapper">
           <Label>Find</Label>
-          <input
-            type="text"
-            id="find"
-            ref={this.findInput}
-            className="input showBorder"
-            value={this.state.findValue}
-            onChange={this.onFindInputChange}
-          />
+          <div className="input">
+            <input
+              type="text"
+              id="find"
+              ref={this.findInput}
+              className="input__field showBorder"
+              value={this.state.findValue}
+              onChange={this.onFindInputChange}
+            />
+          </div>
         </div>
 
         <div className="replaceSection inputWrapper">
           <Label>Replace</Label>
-          <input
-            type="text"
-            id="replace"
-            className="input showBorder"
-            value={this.state.replaceValue}
-            onChange={this.onFindInputChange}
-          />
+          <div className="input">
+            <input
+              type="text"
+              id="replace"
+              className="input__field showBorder"
+              value={this.state.replaceValue}
+              onChange={this.onFindInputChange}
+            />
+          </div>
         </div>
 
         <div className="caseSesitiveWrapper">
@@ -206,6 +210,7 @@ class FindReplaceLayers extends React.Component<Props, State> {
             label="Case Sensitive"
             defaultValue={this.state.caseSensitive}
             onChange={this.onCaseSensitiveChange}
+            type="switch"
           />
         </div>
 

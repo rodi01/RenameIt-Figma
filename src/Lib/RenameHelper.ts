@@ -2,7 +2,7 @@
  * @Author: Rodrigo Soares
  * @Date: 2020-05-15 11:02:22
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2020-09-20 21:04:57
+ * @Last Modified time: 2022-04-02 22:08:31
  */
 
 /**
@@ -215,13 +215,4 @@ export function getPositionalSequence(layers: Array<any>) {
   let lrs = sortBy(layers, "x")
   lrs = sortBy(layers, "y")
   return lrs
-}
-
-//  TODO: Sync with settings
-export function getSequenceType() {
-  // return Settings.settingForKey(SEQUENCE_KEY) || 'layerList'
-}
-
-export function setSequenceType(type) {
-  // Settings.setSettingForKey(SEQUENCE_KEY, type)
 }
