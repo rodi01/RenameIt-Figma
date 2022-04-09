@@ -2,7 +2,7 @@
  * @Author: Rodrigo Soares
  * @Date: 2019-07-31 20:36:11
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2022-04-03 02:05:12
+ * @Last Modified time: 2022-04-08 23:55:18
  */
 
 import { script as io } from './Lib/io.js'
@@ -52,6 +52,17 @@ function doFindReplace(findReplace, item, inputData) {
 
   return findReplace.match(options) ? findReplace.layer(options) : false
 }
+
+figma.parameters.on('input', ({query, key, result}: ParameterInputEvent) => {
+  
+})
+
+figma.on("run", ({command, parameters}: RunEvent) => {
+  console.log(command);
+  console.log(parameters);
+  
+  
+})
 
 async function theUI() {
   let to = 'noSelection'

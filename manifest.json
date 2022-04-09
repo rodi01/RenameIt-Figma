@@ -8,7 +8,16 @@
   "menu": [
     {
       "name": "Rename Selected Layers",
-      "command": "renameLayers"
+      "command": "renameLayers",
+      "parameters": [
+        {
+          "name": "Rename Layers",
+          "key": "renamelayer",
+          "description": "enter a width in pixels",
+          "allowFreeform": true,
+          "optional": true
+        }
+      ]
     },
     {
       "name": "Find & Replace Selected Layers",
