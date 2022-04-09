@@ -6,7 +6,7 @@
  */
 
 import { script as io } from './Lib/io.js'
-import { Rename, FindReplace } from '@rodi01/renameitlib'
+import { Rename, FindReplace } from 'renameitlib'
 import * as isBlank from 'is-blank'
 import { parseData, WhereTo, reorderSelection, hasSelection, setSequenceType, getSequenceType, sequenceTypeFirstRun } from './Utilities'
 import { findReplaceData, renameData } from './Lib/DataHelper'

@@ -14,3 +14,5 @@ npm-debug.log
 # mac
 .DS_Store
 .prettierrc
+.python-version
+.npmrc

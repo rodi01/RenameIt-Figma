@@ -6,7 +6,7 @@
  */
 
 import * as React from 'react'
-import { Rename } from '@rodi01/renameitlib'
+import { Rename } from 'renameitlib'
 import * as isBlank from 'is-blank'
 import * as isNumber from 'is-number'
 import { Title, Label, Button, Select } from 'react-figma-plugin-ds'

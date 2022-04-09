@@ -6,7 +6,7 @@
  */
 
 import * as React from 'react'
-import { FindReplace } from '@rodi01/renameitlib'
+import { FindReplace } from 'renameitlib'
 import { Button, Checkbox, Label, Title } from 'react-figma-plugin-ds'
 import { findReplaceData } from './Lib/DataHelper'
 import Preview from './Preview'

@@ -13,7 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@figma/plugin-typings": "^1.33.0",
-    "@rodi01/renameitlib": "^1.2.3",
+    "renameitlib": "^1.2.3",
     "@types/react": "^17.0.6",
     "@types/react-dom": "^17.0.5",
     "css-loader": "^6.7.1",
@@ -23,7 +23,7 @@
     "node-sass": "^7.0.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "react-figma-plugin-ds": "git+https://github.com/rodi01/react-figma-plugin-ds.git",
+    "react-figma-plugin-ds": "github:rodi01/react-figma-plugin-ds",
     "sass-loader": "^12.6.0",
     "style-loader": "^3.3.1",
     "ts-loader": "^9.2.8",
