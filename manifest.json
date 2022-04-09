@@ -8,20 +8,30 @@
   "menu": [
     {
       "name": "Rename Selected Layers",
-      "command": "renameLayers",
-      "parameters": [
-        {
-          "name": "Rename Layers",
-          "key": "renamelayer",
-          "description": "enter a width in pixels",
-          "allowFreeform": true,
-          "optional": true
-        }
-      ]
+      "command": "renameLayers"
     },
     {
       "name": "Find & Replace Selected Layers",
       "command": "findReplace"
+    },
+    {
+      "name": "Quick Rename",
+      "command": "quickRename",
+      "parameters": [
+        {
+          "name": "New name",
+          "key": "inputName",
+          "description": "enter new name, you can use rename it keywords",
+          "allowFreeform": true
+        },
+        {
+          "name": "Sequence Order",
+          "key": "sequenceOrder",
+          "allowFreeform": false,
+          "optional": true
+        }
+      ],
+      "parameterOnly": true
     },
     { "separator": true },
     {

@@ -2,7 +2,7 @@
  * @Author: Rodrigo Soares
  * @Date: 2019-07-31 20:37:56
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2022-04-03 01:50:34
+ * @Last Modified time: 2022-04-09 13:42:25
  */
 
 import * as React from 'react'
@@ -14,6 +14,7 @@ import Preview from './Preview'
 import { html as io } from './Lib/io.js'
 import { renameData } from './Lib/DataHelper'
 import { track } from './Lib/GoogleAnalytics'
+import { SequenceType } from "./Utilities";
 
 interface Props {
   data: any
@@ -146,9 +147,9 @@ class RenameLayers extends React.Component<Props, State> {
     )
 
     // check for sequence type
-    if (this.state.selectValue === 'xPos') {
+    if (this.state.selectValue === SequenceType.XPos) {
       options.currIdx = options.xIdx
-    } else if (this.state.selectValue === 'yPos') {
+    } else if (this.state.selectValue === SequenceType.YPos) {
       options.currIdx = options.yIdx
     }
 
@@ -341,18 +342,18 @@ class RenameLayers extends React.Component<Props, State> {
               onChange={this.onSequenceTypeChange}
               options={[
                 {
-                  value: 'layerList',
+                  value: SequenceType.LayerList,
                   label: 'Layer Panel',
                   iconClass: 'layerList',
                 },
                 { divider: true, value: 1, label: '' },
                 {
-                  value: 'xPos',
+                  value: SequenceType.XPos,
                   label: 'Left to right, top to bottom',
                   iconClass: 'xPos',
                 },
                 {
-                  value: 'yPos',
+                  value: SequenceType.YPos,
                   label: 'Top to bottom, left to right',
                   iconClass: 'yPos',
                 },

@@ -2,7 +2,7 @@
  * @Author: Rodrigo Soares
  * @Date: 2019-07-31 19:01:45
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2022-04-03 01:19:04
+ * @Last Modified time: 2022-04-09 13:43:16
  */
 
 import {
@@ -23,6 +23,12 @@ export enum WhereTo {
   Settings = "settings",
   NoSelection = "noSelection",
   Donate = "donate"
+}
+
+export enum SequenceType {
+  LayerList = "layerList",
+  XPos = "xPos",
+  YPos = "yPos"
 }
 
 export function hasSelection(data : any) {
@@ -117,9 +123,11 @@ export async function setSequenceType(type) {
 }
 
 export async function sequenceTypeFirstRun() {
-  const sType = await figma.clientStorage.getAsync(kSequenceType)  
+  let sType = await figma.clientStorage.getAsync(kSequenceType)  
   if (sType === undefined) {
-    await setSequenceType('layerList')
+   await setSequenceType(SequenceType.LayerList)
+   sType = SequenceType.LayerList
   }
+  return sType
 }
 
