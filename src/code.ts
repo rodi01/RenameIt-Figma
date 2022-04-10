@@ -2,7 +2,7 @@
  * @Author: Rodrigo Soares
  * @Date: 2019-07-31 20:36:11
  * @Last Modified by: Rodrigo Soares
- * @Last Modified time: 2022-04-09 15:06:21
+ * @Last Modified time: 2022-04-09 19:54:46
  */
 
 import { script as io } from './Lib/io.js'
@@ -16,6 +16,8 @@ import {
   setAnalyticsEnabled,
   analyticsFirstRun,
 } from './Lib/GoogleAnalytics'
+
+var ellipsize = require("ellipsize")
 
 const data = parseData(figma.currentPage)
 let initialSequenceType = null
@@ -106,7 +108,7 @@ figma.parameters.on('input', ({key, query, parameters, result}: ParameterInputEv
     }
     const previewText = renameLayers(d, true)
     const preview = `Preview: ${previewText.filter((val) => val).join(', ')}`
-    result.setLoadingMessage(preview)
+    result.setLoadingMessage(ellipsize(preview, 60))
   } 
 })
 
